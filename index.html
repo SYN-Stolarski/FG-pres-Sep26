@@ -1,0 +1,1136 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Website-Relaunch Feser-Graf</title>
+<!--
+  Interaktive Präsentation „Website-Relaunch der Feser-Graf Gruppe“
+  Termin: Geschäftsführung Feser-Graf, 28.09.2026 · Feser-Graf × synaigy
+
+  BEDIENUNG
+    → / Leertaste / Klick   nächster Build-Schritt bzw. nächste Folie
+    ←                        zurück
+    F                        Vollbild
+    Zahl + Enter             Sprung zu Folie
+    Esc                      Übersicht aller Folien
+    N                        Sprechernotizen ein/aus
+    S                        synaigy-Chips ein/aus
+
+  ANPASSEN
+    Reihenfolge, Chips und prüfbare Werte: siehe „CONFIG“ am Anfang des <script>-Blocks (Suche nach "CONFIG").
+    Bild-Slots (Folien 5 und 9–13): PNG/JPG einfach neben diese Datei legen, Dateinamen siehe <img src="…">.
+-->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap">
+<style>
+:root{
+  --navy:#0C3E75; --navy-deep:#082C55; --navy-soft:#E6ECF5; --navy-mid:#35598C;
+  --green:#489C41; --green-deep:#3D9836; --green-soft:#EAF4E8; --green-line:#B4D7B4;
+  --bg:#FFFFFF; --card:#F7F8FA; --line:#E1E5EA; --text:#333A45; --muted:#6B7280; --ink:#1B2430;
+  --orange:#E8641B;
+  --font:"Montserrat","Helvetica Neue",Helvetica,Arial,system-ui,sans-serif;
+  --ease:cubic-bezier(.2,.7,.2,1);
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;background:#0b1626;font-family:var(--font);color:var(--text);overflow:hidden}
+button{font:inherit}
+
+/* ---------- Bühne 1920×1080, skaliert ---------- */
+#stage{position:absolute;left:50%;top:50%;width:1920px;height:1080px;transform-origin:center center;background:var(--bg);box-shadow:0 30px 90px rgba(0,0,0,.45);overflow:hidden}
+.slide{position:absolute;inset:0;padding:64px 96px 56px;opacity:0;visibility:hidden;transition:opacity .45s var(--ease);background:var(--bg)}
+.slide.active{opacity:1;visibility:visible;z-index:2}
+.slide.leaving{opacity:0;visibility:visible;z-index:1}
+
+/* Hintergrund-Ornamente: Punktraster + Kreise (aus der FG-Bildsprache) */
+.slide::before{content:"";position:absolute;right:120px;top:40px;width:120px;height:90px;pointer-events:none;
+  background-image:radial-gradient(circle,#C9D2DE 1.6px,transparent 1.8px);background-size:16px 16px;opacity:.9}
+.slide::after{content:"";position:absolute;right:-180px;top:-220px;width:520px;height:520px;border-radius:50%;border:1.5px solid #DCE3EC;pointer-events:none}
+.slide.dark::before,.slide.dark::after{display:none}
+
+/* ---------- Kopfzeile ---------- */
+.hdr{position:absolute;left:96px;top:52px;display:flex;align-items:center;gap:10px;z-index:3}
+.logo{display:inline-flex;align-items:center;gap:8px;font-weight:800;font-size:30px;letter-spacing:.06em;color:var(--navy);line-height:1}
+.logo svg{width:34px;height:34px}
+.logo .rule{display:block}
+.hdr .rule{position:absolute;left:0;top:46px;width:90px;height:3px;background:var(--green);border-radius:2px}
+.chip{position:absolute;right:96px;top:56px;z-index:3;font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#fff;background:var(--green);padding:8px 14px;border-radius:999px;box-shadow:0 4px 14px rgba(72,156,65,.3)}
+body.nochips .chip{display:none}
+
+/* ---------- Titelblock ---------- */
+.eyebrow{margin:70px 0 6px;font-size:18px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--green)}
+h1{margin:0;font-size:64px;line-height:1.05;font-weight:800;color:var(--navy);letter-spacing:-.01em;text-wrap:balance}
+.sub{margin:18px 0 0;font-size:24px;line-height:1.4;color:var(--text);max-width:1180px;font-weight:500}
+.sub b{color:var(--navy)}
+
+/* ---------- Karten ---------- */
+.cards{display:grid;gap:22px;margin-top:34px}
+.cards.c5{grid-template-columns:repeat(5,1fr)}
+.cards.c4{grid-template-columns:repeat(4,1fr)}
+.cards.c3{grid-template-columns:repeat(3,1fr)}
+.cards.c2{grid-template-columns:repeat(2,1fr)}
+.card{background:var(--card);border:1.5px solid var(--line);border-radius:18px;padding:26px 26px 24px;position:relative}
+.card .ic{width:64px;height:64px;border-radius:50%;background:#fff;border:1.5px solid var(--line);display:grid;place-items:center;color:var(--green);margin-bottom:16px}
+.card .ic svg{width:34px;height:34px}
+.card h3{margin:0 0 10px;font-size:22px;color:var(--navy);font-weight:700;line-height:1.2}
+.card p{margin:0;font-size:17.5px;line-height:1.5}
+.card ul{margin:0;padding:0;list-style:none;font-size:17px;line-height:1.55}
+.card ul li{position:relative;padding-left:18px}
+.card ul li::before{content:"";position:absolute;left:0;top:.62em;width:7px;height:7px;border-radius:50%;background:var(--green)}
+.card.row{display:grid;grid-template-columns:64px 1fr;gap:18px;align-items:start}
+.card.row .ic{margin:0}
+.card.center{text-align:center}
+.card.center .ic{margin:0 auto 16px}
+.card.center ul{text-align:left;display:inline-block}
+
+/* ---------- Schlussbanner ---------- */
+.banner{position:absolute;left:96px;right:96px;bottom:56px;background:#fff;border:2px solid var(--green);border-radius:16px;padding:22px 40px;text-align:center;box-shadow:0 10px 30px rgba(12,62,117,.08)}
+.banner b{display:block;font-size:30px;color:var(--navy);font-weight:800;line-height:1.25}
+.banner span{display:block;margin-top:6px;font-size:21px;color:var(--text)}
+
+/* ---------- Prozessketten ---------- */
+.process{display:flex;align-items:flex-start;justify-content:space-between;margin-top:36px;gap:0}
+.step{position:relative;flex:1;text-align:center;padding:0 8px}
+.step .no{position:absolute;left:50%;top:-10px;transform:translateX(-50%);width:36px;height:36px;border-radius:50%;background:var(--navy);color:#fff;font-weight:700;font-size:18px;display:grid;place-items:center;z-index:2;border:3px solid #fff}
+.step .ring{width:118px;height:118px;border-radius:50%;margin:0 auto;border:2px solid var(--line);background:#fff;display:grid;place-items:center;color:var(--green);box-shadow:0 0 0 8px #fff,0 0 0 9px var(--green-line)}
+.step .ring svg{width:54px;height:54px}
+.step h4{margin:16px 0 4px;font-size:21px;color:var(--navy);font-weight:700}
+.step p{margin:0;font-size:16.5px;color:var(--text);line-height:1.4}
+.step .arrow{position:absolute;top:56px;right:-34px;width:68px;height:12px;z-index:1}
+.step:last-child .arrow{display:none}
+.step .arrow::before{content:"";position:absolute;left:0;top:5px;width:100%;height:2px;background:var(--navy)}
+.step .arrow::after{content:"";position:absolute;right:0;top:0;width:12px;height:12px;border-top:2px solid var(--navy);border-right:2px solid var(--navy);transform:rotate(45deg)}
+.step .arrow i{position:absolute;left:-3px;top:2px;width:8px;height:8px;border-radius:50%;background:var(--green)}
+.step.human .ring{border-color:var(--green);box-shadow:0 0 0 8px var(--green-soft),0 0 0 10px var(--green)}
+.step.human .no{background:var(--green)}
+.step.human h4{color:var(--green-deep)}
+
+/* ---------- Hub-Grafiken ---------- */
+.hub{position:absolute}
+.hub > svg,.hub .orbit-wrap > svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.notes{display:none}
+.hub .sat{position:absolute;translate:-50% -50%;display:flex;align-items:center;gap:14px;white-space:nowrap}
+.hub .sat .node{width:92px;height:92px;border-radius:50%;background:#fff;border:2px solid var(--line);display:grid;place-items:center;color:var(--green);box-shadow:0 6px 18px rgba(12,62,117,.08);flex:none}
+.hub .sat .node svg{width:44px;height:44px}
+.hub .sat .txt b{display:block;font-size:20px;color:var(--navy);font-weight:700}
+.hub .sat .txt span{display:block;font-size:16px;color:var(--text)}
+.hub .sat.lbl{translate:-46px -50%}
+.hub .sat.lbl.l{translate:calc(-100% + 46px) -50%;flex-direction:row-reverse;text-align:right}
+.hub .sat.small .node{width:64px;height:64px}
+.hub .sat.small .node svg{width:30px;height:30px}
+.hub .core{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);border-radius:50%;background:var(--navy);color:#fff;display:grid;place-items:center;text-align:center;box-shadow:0 0 0 14px #fff,0 0 0 16px var(--line),0 20px 50px rgba(12,62,117,.25)}
+.hub .core b{display:block;font-size:34px;font-weight:800;line-height:1.1}
+.hub .core span{display:block;font-size:18px;opacity:.9;margin-top:6px}
+.hub .core.light{background:#fff;color:var(--navy);box-shadow:0 0 0 14px #fff,0 0 0 16px var(--navy),0 20px 50px rgba(12,62,117,.15)}
+.hub line,.hub path.link{stroke:var(--navy);stroke-width:2;fill:none}
+.hub line.g,.hub path.link.g{stroke:var(--green)}
+.hub .dot{fill:var(--green)}
+.hub .dotn{fill:var(--navy)}
+.hub circle.orbit{fill:none;stroke:var(--line);stroke-width:1.5;stroke-dasharray:4 8}
+
+/* ---------- Build-Schritte ---------- */
+[data-build]{opacity:0;transform:translateY(14px);transition:opacity .4s var(--ease),transform .4s var(--ease)}
+[data-build].on{opacity:1;transform:none}
+[data-build].dim{opacity:.38;filter:grayscale(1)}
+.hub svg line[data-build],.hub svg path[data-build]{transform:none;stroke-dasharray:1000;stroke-dashoffset:1000;opacity:1;transition:stroke-dashoffset .6s var(--ease)}
+.hub svg line[data-build].on,.hub svg path[data-build].on{stroke-dashoffset:0}
+body.overview [data-build],body.reveal-all [data-build],body.overview .hub svg line[data-build],body.reveal-all .hub svg line[data-build]{opacity:1;transform:none;stroke-dashoffset:0}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+/* ---------- Titelfolie ---------- */
+#s01 .hdr .rule{display:block}
+#s01 h1{margin-top:150px;font-size:88px}
+#s01 .lead{margin:22px 0 0;font-size:38px;line-height:1.2;color:var(--green-deep);font-weight:600;max-width:760px}
+#s01 .sub{font-size:24px;max-width:700px;margin-top:28px}
+#s01 .foot{position:absolute;left:96px;bottom:64px;display:flex;gap:44px}
+#s01 .foot div{padding-top:12px;border-top:3px solid var(--green);font-size:18px;line-height:1.45}
+#s01 .foot b{display:block;color:var(--navy);font-size:19px}
+#s01 .foot div:nth-child(2){border-top-color:var(--navy)}
+#s01 .co{position:absolute;right:96px;bottom:64px;font-size:19px;color:var(--text)}
+#s01 .co b{color:var(--navy);font-weight:800;font-size:22px;margin-left:8px;letter-spacing:-.01em}
+#s01 .trapez{position:absolute;right:0;top:0;width:900px;height:1080px;background:linear-gradient(160deg,#F4F7FB 0%,#EEF3F9 100%);clip-path:polygon(18% 0,100% 0,100% 100%,0 100%);z-index:0}
+#s01 .hub{right:120px;top:120px;width:760px;height:800px;z-index:1}
+#s01 .hub .core{width:210px;height:210px}
+#s01 .hub .core svg{width:110px;height:110px}
+
+/* ---------- Folie 2 ---------- */
+#s02 .cards{width:1360px}
+#s02 .path{position:absolute;right:96px;top:250px;width:300px;text-align:center}
+#s02 .path .box{width:190px;height:120px;margin:0 auto;border-radius:16px;border:2px solid var(--line);background:#fff;display:grid;place-items:center;color:var(--navy)}
+#s02 .path .box svg{width:70px;height:70px}
+#s02 .path .box.g{border-color:var(--green);color:var(--green);background:var(--green-soft)}
+#s02 .path .box.n{border-color:var(--navy);background:var(--navy);color:#fff}
+#s02 .path label{display:block;font-size:17px;margin:8px 0 0;color:var(--text);font-weight:600}
+#s02 .path .arr{width:2px;height:34px;background:var(--green);margin:10px auto 6px;position:relative}
+#s02 .path .arr::after{content:"";position:absolute;left:-5px;bottom:-2px;border:6px solid transparent;border-top:8px solid var(--green)}
+
+/* ---------- Folie 3 ---------- */
+#s03 .cmp{display:grid;grid-template-columns:1fr 90px 1fr;gap:20px;align-items:stretch;margin-top:22px}
+#s03 .col{border-radius:16px;padding:22px 28px;border:1.5px solid var(--line);background:var(--card)}
+#s03 .col h4{margin:0 0 10px;font-size:22px;color:var(--navy);text-align:center}
+#s03 .col ul{margin:0;padding:0;list-style:none;font-size:18px;line-height:1.7;columns:2;column-gap:24px}
+#s03 .col li{display:flex;gap:10px;align-items:center;break-inside:avoid}
+#s03 .col li svg{width:20px;height:20px;flex:none}
+#s03 .col.bad li svg{color:#9AA3AF}
+#s03 .col.good{border-color:var(--green);background:var(--green-soft)}
+#s03 .col.good h4{color:var(--green-deep)}
+#s03 .col.good li svg{color:var(--green)}
+#s03 .cmp .arr{align-self:center;color:var(--green)}
+#s03 .cmp .arr svg{width:90px;height:40px}
+#s03 .cards.c4 .card{padding:20px 22px 18px}
+#s03 .cards.c4 .card ul{font-size:16.5px}
+#s03 .cards{margin-top:26px}
+
+/* ---------- Folie 4 ---------- */
+#s04 .two{display:grid;grid-template-columns:1fr 1fr;gap:26px;margin-top:26px}
+#s04 .panel{border:1.5px solid var(--line);border-radius:18px;padding:18px 20px 20px;background:#fff}
+#s04 .panel h3{margin:0 0 14px;text-align:center;font-size:22px;color:var(--navy)}
+#s04 .facts{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+#s04 .fact{border:1.5px solid var(--line);border-radius:12px;background:var(--card);padding:12px 14px;display:grid;grid-template-columns:36px 1fr;gap:10px;align-items:start;min-height:96px}
+#s04 .fact svg{width:34px;height:34px;color:var(--green)}
+#s04 .fact b{display:block;font-size:26px;color:var(--navy);line-height:1;margin-bottom:4px}
+#s04 .fact b.txt{font-size:16.5px;line-height:1.2}
+#s04 .fact span{font-size:13.5px;line-height:1.35;color:var(--text)}
+#s04 .why{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+#s04 .why .fact{grid-template-columns:44px 1fr}
+#s04 .why .fact svg{width:40px;height:40px}
+#s04 .refs{margin-top:20px;border:1.5px solid var(--line);border-radius:14px;padding:14px 24px;display:flex;align-items:center;gap:26px}
+#s04 .refs h4{margin:0;font-size:18px;color:var(--navy);white-space:nowrap}
+#s04 .refs ul{margin:0;padding:0;list-style:none;display:flex;flex:1;justify-content:space-around;font-weight:700;font-size:20px;color:#8B939E;letter-spacing:.04em}
+#s04 .refs li{padding:0 8px}
+
+/* ---------- Folie 5 Team ---------- */
+#s05 .team{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:38px}
+#s05 .person{border:1.5px solid var(--line);border-radius:18px;background:var(--card);padding:28px 26px 26px;text-align:center}
+#s05 .avatar{width:150px;height:150px;border-radius:50%;margin:0 auto 18px;background:var(--navy);color:#fff;display:grid;place-items:center;font-size:48px;font-weight:800;letter-spacing:.02em;overflow:hidden;border:5px solid #fff;box-shadow:0 0 0 2px var(--line)}
+#s05 .avatar img{width:100%;height:100%;object-fit:cover;display:none}
+#s05 .avatar.has img{display:block}
+#s05 .avatar.has span{display:none}
+#s05 .person h3{margin:0;font-size:24px;color:var(--navy)}
+#s05 .person .role{display:block;color:var(--green-deep);font-weight:700;font-size:16.5px;margin:6px 0 14px}
+#s05 .person ul{margin:0;padding:0;list-style:none;font-size:16.5px;line-height:1.5;text-align:left;display:inline-block}
+#s05 .person li{position:relative;padding-left:16px}
+#s05 .person li::before{content:"";position:absolute;left:0;top:.6em;width:7px;height:7px;border-radius:50%;background:var(--green)}
+
+/* ---------- Folie 6 Zielbild ---------- */
+#s06 h1{font-size:60px;max-width:420px}
+#s06 .sub{max-width:420px;font-size:21px}
+#s06 .hub{left:700px;top:60px;width:820px;height:520px}
+#s06 .hub .core{width:250px;height:250px}
+#s06 .cards{position:absolute;left:96px;right:96px;top:610px;margin:0}
+#s06 .flow{display:flex;flex-direction:column;gap:2px;font-size:17px}
+#s06 .flow span{display:flex;align-items:center;gap:8px}
+#s06 .flow span::after{content:"↓";color:var(--green);font-weight:800}
+#s06 .flow span:last-child::after{content:""}
+#s06 .card.row{grid-template-columns:76px 1fr}
+#s06 .card .ic{width:76px;height:76px}
+
+/* ---------- Folie 7 Bausteine ---------- */
+#s07 .tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:34px}
+#s07 .tile{border:1.5px solid var(--line);border-radius:18px;background:var(--card);padding:26px 28px;display:grid;grid-template-columns:70px 64px 1fr;gap:16px;align-items:start;transition:border-color .25s,box-shadow .25s;min-height:230px;padding:32px 30px}
+#s07 .tile:hover{border-color:var(--green);box-shadow:0 10px 26px rgba(72,156,65,.15)}
+#s07 .tile .no{font-size:44px;font-weight:800;color:var(--navy);line-height:1}
+#s07 .tile .ic{color:var(--green)}
+#s07 .tile .ic svg{width:60px;height:60px}
+#s07 .tile h3{margin:4px 0 10px;font-size:24px;color:var(--navy);line-height:1.2}
+#s07 .tile ul{margin:0;padding:0;list-style:none;font-size:19px;line-height:1.6}
+#s07 .tile li{position:relative;padding-left:16px}
+#s07 .tile li::before{content:"";position:absolute;left:0;top:.62em;width:7px;height:7px;border-radius:50%;background:var(--green)}
+
+/* ---------- Folie 8 / 14 / 15 ---------- */
+.proc-slide .cards{margin-top:34px}
+.proc-slide .cards .card{padding:20px 22px}
+.proc-slide .cards .card h3{font-size:21px}
+.proc-slide .cards .card ul{font-size:16.5px}
+
+/* ---------- Folien 9–13 Design ---------- */
+.design .stagebox{display:grid;grid-template-columns:1fr 420px;gap:40px;margin-top:30px;align-items:start}
+.design .mocks{display:grid;grid-template-columns:1fr 240px;gap:28px;align-items:end}
+.design .desktop{border-radius:14px;background:#fff;border:2px solid var(--line);box-shadow:0 22px 50px rgba(12,62,117,.14);overflow:hidden;cursor:zoom-in}
+.design .desktop .bar{height:34px;background:#EEF1F5;border-bottom:1.5px solid var(--line);display:flex;align-items:center;gap:8px;padding:0 14px}
+.design .desktop .bar i{width:11px;height:11px;border-radius:50%;background:#C9D2DE}
+.design .desktop .bar .url{margin-left:12px;flex:1;height:18px;border-radius:9px;background:#fff;border:1px solid var(--line);font-size:12px;color:var(--muted);display:flex;align-items:center;padding:0 10px}
+.design .desktop .slot{aspect-ratio:16/8.4;position:relative;background:#F4F6F9}
+.design .mobile{width:240px;border-radius:34px;background:#0F1A2B;padding:12px;box-shadow:0 22px 50px rgba(12,62,117,.2);cursor:zoom-in}
+.design .mobile .slot{aspect-ratio:9/19.5;border-radius:24px;overflow:hidden;position:relative;background:#F4F6F9}
+.design .slot img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top;display:none}
+/* Auto-Scroll: hohe Screens fahren langsam durch, als würde man die Seite scrollen */
+.design .slot img.scrolls{height:auto;bottom:auto;object-fit:unset;animation:autoscroll var(--dur,14s) ease-in-out infinite alternate;animation-play-state:paused;will-change:transform}
+.slide.active .slot img.scrolls{animation-play-state:running}
+@keyframes autoscroll{0%,5%{transform:translateY(0)}95%,100%{transform:translateY(calc(-1 * var(--over,0px)))}}
+/* Parallax: Mockups gleiten beim Einblenden ein, schweben leicht versetzt und folgen der Maus in unterschiedlicher Tiefe */
+.design .desktop,.design .mobile{translate:var(--tx,0px) var(--ty,0px);transition:translate .5s cubic-bezier(.2,.7,.2,1)}
+.slide.active.design .desktop{animation:enterL .9s var(--ease) both,floatA 9s 1s ease-in-out infinite alternate}
+.slide.active.design .mobile{animation:enterR .9s .18s var(--ease) both,floatB 6.5s 1.3s ease-in-out infinite alternate}
+@keyframes enterL{from{opacity:0;transform:translateX(-60px)}to{opacity:1;transform:none}}
+@keyframes enterR{from{opacity:0;transform:translateX(60px) translateY(20px)}to{opacity:1;transform:none}}
+@keyframes floatA{from{transform:translateY(0)}to{transform:translateY(-10px)}}
+@keyframes floatB{from{transform:translateY(0)}to{transform:translateY(-22px)}}
+/* Folie 13: Header-Mockups sind bereits Geräte-Mockups → ohne zusätzlichen Rahmen */
+.design .desktop.plain{border:0;box-shadow:none;background:transparent;border-radius:0;cursor:zoom-in}
+.design .desktop.plain .bar{display:none}
+.design .desktop.plain .slot{aspect-ratio:auto;background:transparent;display:grid;gap:22px}
+.design .desktop.plain .slot img,.design .mobile.plain .slot img{position:static;width:100%;height:auto;display:block;object-fit:unset;filter:drop-shadow(0 18px 40px rgba(12,62,117,.18))}
+.design .desktop.plain .slot .ph{position:relative;aspect-ratio:16/4;border-radius:14px}
+.design .mobile.plain{background:transparent;padding:0;box-shadow:none;width:240px;align-self:start;margin-top:8px}
+#s13 .toggle{display:none}
+.design .mobile.plain .slot{aspect-ratio:auto;border-radius:0;background:transparent;overflow:visible}
+.design .mobile.plain .slot .ph{position:relative;aspect-ratio:9/6;border-radius:24px}
+.design .slot.has img{display:block}
+.design .slot.has .ph{display:none}
+.design .ph{position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:20px;color:var(--muted);font-size:14px;line-height:1.5;background:repeating-linear-gradient(135deg,#F4F6F9 0 14px,#EDF1F5 14px 28px)}
+.design .ph b{display:block;color:var(--navy);font-size:15px;margin-bottom:6px}
+.design .ph code{font-family:ui-monospace,Menlo,monospace;font-size:12.5px;background:#fff;padding:3px 8px;border-radius:6px;border:1px solid var(--line)}
+.design .ph svg{width:44px;height:44px;color:#B9C3CF;margin-bottom:8px}
+.design .side h3{margin:8px 0 14px;font-size:22px;color:var(--navy)}
+.design .side ul{margin:0;padding:0;list-style:none;font-size:18.5px;line-height:1.5;display:grid;gap:12px}
+.design .side li{position:relative;padding-left:32px}
+.design .side li svg{position:absolute;left:0;top:2px;width:22px;height:22px;color:var(--green)}
+.design .benefit{margin-top:26px;background:var(--green-soft);border:1.5px solid var(--green-line);border-radius:14px;padding:18px 22px;font-size:19px;color:var(--ink)}
+.design .benefit b{color:var(--green-deep);text-transform:uppercase;letter-spacing:.12em;font-size:13px;display:block;margin-bottom:6px}
+.design .toggle{display:inline-flex;border:1.5px solid var(--line);border-radius:999px;overflow:hidden;margin-top:26px;font-size:14px;font-weight:700}
+.design .toggle button{border:0;background:#fff;color:var(--muted);padding:8px 16px;cursor:pointer}
+.design .toggle button.on{background:var(--navy);color:#fff}
+.design.focus-mobile .mocks{grid-template-columns:1fr}
+.design.focus-mobile .desktop{display:none}
+.design.focus-mobile .mobile{width:300px;margin:0 auto}
+.design .note{font-size:13.5px;color:var(--muted);margin-top:14px}
+
+/* ---------- Folie 16 Organigramm ---------- */
+#s16 h1{font-size:54px;max-width:640px}
+#s16 .hub{left:560px;top:200px;width:810px;height:600px}
+#s16 .hub .core{width:210px;height:210px}
+#s16 .hub .core b{font-size:24px}
+#s16 .hub .core span{font-size:16px}
+#s16 .pcard{position:absolute;width:330px;border:1.5px solid var(--line);border-radius:14px;background:#fff;padding:14px 16px 12px;display:grid;grid-template-columns:54px 1fr;gap:12px;transition:border-color .25s,box-shadow .25s,transform .25s;cursor:default}
+#s16 .pcard .ic{width:54px;height:54px;border-radius:50%;border:1.5px solid var(--line);display:grid;place-items:center;color:var(--green)}
+#s16 .pcard .ic svg{width:28px;height:28px}
+#s16 .pcard b{display:block;font-size:19px;color:var(--navy)}
+#s16 .pcard em{display:block;font-style:normal;font-size:14px;font-weight:700;color:var(--green-deep);margin:2px 0 6px}
+#s16 .pcard ul{margin:0;padding:0;list-style:none;font-size:14px;line-height:1.45}
+#s16 .pcard li{position:relative;padding-left:14px}
+#s16 .pcard li::before{content:"";position:absolute;left:0;top:.6em;width:6px;height:6px;border-radius:50%;background:var(--green)}
+#s16 .pcard.hi,#s16 .pcard:hover{border-color:var(--green);box-shadow:0 12px 30px rgba(72,156,65,.18);transform:translateY(-2px)}
+#s16 line{transition:stroke-width .2s,stroke .2s}
+#s16 line.hi{stroke:var(--green);stroke-width:4}
+#s16 .levels{position:absolute;left:96px;right:96px;top:860px;display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+#s16 .levels .card{display:grid;grid-template-columns:64px auto 1fr;gap:16px;align-items:center;padding:16px 22px}
+#s16 .levels .card .ic{margin:0}
+#s16 .levels .card b{font-size:22px;color:var(--navy)}
+#s16 .levels .card ul{font-size:16px;line-height:1.35}
+#s16 .banner{bottom:30px;padding:14px 40px}
+#s16 .sub{max-width:440px;font-size:19px}
+
+/* ---------- Folie 17 Impact ---------- */
+#s17 .chain{position:absolute;left:660px;top:305px;width:600px;display:flex;flex-direction:column;align-items:center;gap:0}
+#s17 .link{display:grid;grid-template-columns:54px 1fr;gap:14px;align-items:center;border:2px solid var(--navy);border-radius:14px;background:#fff;padding:12px 20px;width:420px}
+#s17 .link.g{border-color:var(--green);border-radius:40px}
+#s17 .link .ic{width:54px;height:54px;border-radius:50%;display:grid;place-items:center;color:var(--green);border:1.5px solid var(--line)}
+#s17 .link .ic svg{width:30px;height:30px}
+#s17 .link b{display:block;font-size:21px;color:var(--navy)}
+#s17 .link span{font-size:15px;color:var(--text)}
+#s17 .conn{width:2px;height:22px;background:var(--navy);position:relative}
+#s17 .conn::after{content:"";position:absolute;left:-4px;bottom:-3px;width:8px;height:8px;border-radius:50%;background:var(--green)}
+#s17 .sidecol{position:absolute;top:335px;width:460px;border:1.5px solid var(--line);border-radius:18px;background:var(--card);padding:16px 22px}
+#s17 .sidecol.l{left:96px}#s17 .sidecol.r{right:96px}
+#s17 .sidecol h3{margin:0 0 10px;font-size:22px;color:var(--navy);display:flex;align-items:center;gap:12px;padding-bottom:10px;border-bottom:1.5px solid var(--line)}
+#s17 .sidecol h3 svg{width:34px;height:34px;color:var(--green)}
+#s17 .sidecol ul{margin:0;padding:0;list-style:none;font-size:18px}
+#s17 .sidecol li{display:flex;align-items:center;gap:14px;padding:10px 0;border-bottom:1px solid var(--line)}
+#s17 .sidecol li:last-child{border-bottom:0}
+#s17 .sidecol li i{width:40px;height:40px;border-radius:50%;border:1.5px solid var(--line);display:grid;place-items:center;color:var(--green);flex:none;background:#fff}
+#s17 .sidecol li svg{width:22px;height:22px}
+#s17 .strip{position:absolute;left:96px;right:96px;top:825px;border:1.5px solid var(--line);border-radius:14px;background:var(--card);display:flex;align-items:center;padding:12px 24px;gap:8px}
+#s17 .strip h4{margin:0;font-size:20px;color:var(--navy);padding-right:24px;border-right:1.5px solid var(--line);white-space:nowrap}
+#s17 .strip ul{margin:0;padding:0;list-style:none;display:flex;flex:1;justify-content:space-around;font-size:15.5px;text-align:center}
+#s17 .strip li svg{display:block;width:32px;height:32px;margin:0 auto 4px;color:var(--green)}
+#s17 .banner{bottom:30px;padding:14px 40px}
+
+/* ---------- Folie 18 Abschluss ---------- */
+#s18 h1{margin-top:150px;font-size:96px}
+#s18 .sub{max-width:520px;font-size:26px}
+#s18 .hub{left:600px;top:100px;width:820px;height:820px}
+#s18 .hub .core{width:250px;height:250px}
+#s18 .hub .core svg{width:96px;height:96px}
+#s18 .hub .core b{font-size:28px;margin-top:8px}
+#s18 .orbit-wrap{position:absolute;inset:0;animation:spin 90s linear infinite}
+#s18 .orbit-wrap .sat{animation:counterspin 90s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes counterspin{to{transform:rotate(-360deg)}}
+#s18 .foot{position:absolute;left:96px;bottom:64px;padding-top:12px;border-top:3px solid var(--green);font-size:18px;line-height:1.5}
+#s18 .foot b{display:block;color:var(--green-deep)}
+#s18 .foot2{position:absolute;right:96px;bottom:64px;padding-top:12px;border-top:3px solid var(--navy);font-size:18px;line-height:1.5;text-align:right}
+#s18 .foot2 b{display:block;color:var(--navy)}
+
+/* ---------- Folie 19 Investition ---------- */
+#s19 .total{position:absolute;left:760px;top:60px;width:440px;border:1.5px solid var(--line);border-radius:18px;background:var(--card);text-align:center;padding:18px 20px 16px}
+#s19 .total h4{margin:0;font-size:20px;color:var(--navy)}
+#s19 .total .num{white-space:nowrap;font-size:66px;font-weight:800;color:var(--green);line-height:1.05;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+#s19 .total b{display:block;color:var(--navy);font-size:20px}
+#s19 .total > span{display:block;font-size:14.5px;color:var(--text)}
+#s19 .total small{display:block;font-size:12.5px;color:var(--muted);margin-top:4px}
+#s19 h1{max-width:640px}
+#s19 .sub{max-width:600px}
+#s19 .pos{display:grid;grid-template-columns:repeat(5,1fr) 300px;gap:16px;margin-top:40px}
+#s19 .pos .card{text-align:center;padding:20px 14px 18px;display:flex;flex-direction:column;align-items:center}
+#s19 .pos .card .ic{margin-bottom:12px}
+#s19 .pos .card h3{font-size:17.5px;min-height:44px;display:flex;align-items:center;justify-content:center;margin:0 0 8px}
+#s19 .pos .card .pt{font-size:24px;color:var(--green);font-weight:800;padding-top:10px;border-top:1.5px solid var(--line);width:100%;font-variant-numeric:tabular-nums}
+#s19 .pos .card .eur{font-size:24px;color:var(--navy);font-weight:700;font-variant-numeric:tabular-nums}
+#s19 .opt{background:var(--card);border:1.5px solid var(--line);border-radius:18px;padding:16px}
+#s19 .opt h4{margin:0 0 10px;text-align:center;font-size:19px;color:var(--green-deep)}
+#s19 .opt .o{background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:10px 12px;display:grid;grid-template-columns:44px 1fr;gap:10px;align-items:center;margin-bottom:10px}
+#s19 .opt .o svg{width:36px;height:36px;color:var(--green)}
+#s19 .opt .o b{display:block;font-size:16px;color:var(--navy)}
+#s19 .opt .o span{font-size:14.5px;color:var(--green-deep);font-weight:600}
+#s19 .bar{margin-top:22px;height:22px;border-radius:11px;overflow:hidden;display:flex;background:var(--line)}
+#s19 .bar i{display:block;height:100%;transition:width .9s var(--ease);width:0}
+#s19 .bar i:nth-child(1){background:var(--navy)}#s19 .bar i:nth-child(2){background:var(--navy-mid)}#s19 .bar i:nth-child(3){background:var(--green-deep)}#s19 .bar i:nth-child(4){background:var(--green)}#s19 .bar i:nth-child(5){background:#8DC487}
+#s19 .kpi{margin-top:18px;border:1.5px solid var(--line);border-radius:14px;background:var(--card);display:flex;align-items:center;padding:12px 24px}
+#s19 .kpi h4{margin:0;font-size:19px;color:var(--green-deep);padding-right:26px;margin-right:6px;border-right:1.5px solid var(--line)}
+#s19 .kpi .k{flex:1;display:flex;align-items:center;gap:12px;justify-content:center}
+#s19 .kpi .k svg{width:36px;height:36px;color:var(--green)}
+#s19 .kpi .k b{display:block;font-size:22px;color:var(--navy);font-variant-numeric:tabular-nums}
+#s19 .kpi .k span{font-size:14px;color:var(--text)}
+#s19 .banner{bottom:40px;padding:16px 40px}
+#s19 .banner b{font-size:26px}
+#s19 .banner span{font-size:19px}
+
+/* ---------- Chrome: Fortschritt, Notizen, Übersicht, Lightbox ---------- */
+#progress{position:fixed;left:0;bottom:0;height:4px;background:var(--green);width:0;z-index:50;transition:width .3s}
+#counter{position:fixed;right:18px;bottom:12px;color:#8FA1B8;font-size:13px;font-weight:600;z-index:50;font-variant-numeric:tabular-nums;font-family:var(--font)}
+#jump{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);background:#fff;color:var(--navy);font-size:40px;font-weight:800;padding:14px 30px;border-radius:14px;display:none;z-index:60;box-shadow:0 20px 60px rgba(0,0,0,.4)}
+#notes{position:fixed;left:0;right:0;bottom:0;background:rgba(11,22,38,.96);color:#E8EEF6;padding:18px 32px 24px;font-size:18px;line-height:1.5;z-index:55;display:none;max-height:38vh;overflow:auto;border-top:3px solid var(--green);font-family:var(--font)}
+#notes b{color:#9FD39A}
+#notes .empty{color:#8FA1B8}
+body.notes #notes{display:block}
+body.overview #stage{display:none}
+#overview{display:none;position:fixed;inset:0;overflow:auto;padding:40px;z-index:70;background:#0b1626}
+body.overview #overview{display:grid;grid-template-columns:repeat(4,1fr);gap:26px;align-content:start}
+#overview .thumb{position:relative;aspect-ratio:16/9;background:#fff;border-radius:8px;overflow:hidden;cursor:pointer;outline:3px solid transparent;transition:outline-color .2s}
+#overview .thumb:hover,#overview .thumb.cur{outline-color:var(--green)}
+#overview .thumb .inner{position:absolute;left:0;top:0;width:1920px;height:1080px;transform-origin:0 0;pointer-events:none}
+#overview .thumb .inner .slide{opacity:1;visibility:visible;position:absolute}
+#overview .thumb .lbl{position:absolute;left:10px;bottom:8px;background:rgba(11,22,38,.85);color:#fff;font-size:12px;font-weight:700;padding:4px 8px;border-radius:6px}
+#lightbox{position:fixed;inset:0;background:rgba(6,14,26,.94);z-index:80;display:none;overflow:auto;padding:40px;cursor:zoom-out;font-family:var(--font)}
+#lightbox.open{display:block}
+#lightbox img{display:block;margin:0 auto;max-width:min(92vw,1500px);height:auto;border-radius:10px;box-shadow:0 30px 80px rgba(0,0,0,.6)}
+#lightbox img.tall{max-width:min(92vw,520px)}
+#lightbox .ph{color:#B9C3CF;font-size:22px;text-align:center;margin-top:30vh}
+#lightbox .hint{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);color:#8FA1B8;font-size:13px}
+#help{position:fixed;left:18px;bottom:12px;color:#8FA1B8;font-size:12px;z-index:50;font-family:var(--font)}
+</style>
+</head>
+<body>
+
+<!-- ============ ICON-SPRITE (Linien-Icons) ============ -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<defs>
+<symbol id="i-clover" viewBox="0 0 64 64"><path fill="currentColor" d="M32 31c-4-10-1-19 6-20 6 0 9 6 6 12-1 3-6 6-12 8zm0 0c10-4 19-1 20 6 0 6-6 9-12 6-3-1-6-6-8-12zm0 0c4 10 1 19-6 20-6 0-9-6-6-12 1-3 6-6 12-8zm0 0c-10 4-19 1-20-6 0-6 6-9 12-6 3 1 6 6 8 12z"/><path stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none" d="M36 36l9 12"/></symbol>
+<symbol id="i-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+<symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></symbol>
+<symbol id="i-nodes" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/><path d="M8.2 10.8l7.6-3.6M8.2 13.2l7.6 3.6"/></symbol>
+<symbol id="i-chart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M4 20V13M10 20V8M16 20V11M22 20V4"/></symbol>
+<symbol id="i-shield-star" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M12 8.5l1.2 2.4 2.6.4-1.9 1.8.5 2.6L12 14.5l-2.4 1.2.5-2.6-1.9-1.8 2.6-.4z"/></symbol>
+<symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/></symbol>
+<symbol id="i-car" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14l1.5-5A2 2 0 017.4 7.5h9.2a2 2 0 011.9 1.5L20 14"/><rect x="3" y="14" width="18" height="5" rx="1.5"/><circle cx="7.5" cy="16.5" r="1"/><circle cx="16.5" cy="16.5" r="1"/></symbol>
+<symbol id="i-compass" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/></symbol>
+<symbol id="i-user" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.5-6.5 8-6.5s8 2.5 8 6.5"/></symbol>
+<symbol id="i-users" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="9" cy="8" r="3.2"/><circle cx="17" cy="9" r="2.5"/><path d="M3 20c0-3.5 2.7-5.5 6-5.5s6 2 6 5.5M15 15c3 0 6 1.5 6 4.5"/></symbol>
+<symbol id="i-code" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 8l-4 4 4 4M16 8l4 4-4 4M14 5l-4 14"/></symbol>
+<symbol id="i-calendar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></symbol>
+<symbol id="i-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M12 21s-6-5.5-6-11a6 6 0 0112 0c0 5.5-6 11-6 11z"/><circle cx="12" cy="10" r="2.2"/></symbol>
+<symbol id="i-building" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><rect x="4" y="3" width="12" height="18" rx="1"/><path d="M16 9h4v12h-4M7 7h2M11 7h2M7 11h2M11 11h2M7 15h2M11 15h2M9 21v-3h2v3"/></symbol>
+<symbol id="i-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></symbol>
+<symbol id="i-puzzle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M10 4a2 2 0 114 0v1h4v4h1a2 2 0 110 4h-1v4h-4v-1a2 2 0 10-4 0v1H6v-4H5a2 2 0 110-4h1V5h4z"/></symbol>
+<symbol id="i-wrench" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M14.5 6.5a4 4 0 015.2-1.2l-2.7 2.7 1 1 2.7-2.7a4 4 0 01-5 5.2L8 19a2 2 0 11-3-3l7.5-7.5a4 4 0 012-2z"/></symbol>
+<symbol id="i-db" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v12c0 1.7 3.1 3 7 3s7-1.3 7-3V6M5 12c0 1.7 3.1 3 7 3s7-1.3 7-3"/></symbol>
+<symbol id="i-rocket" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M14 4c3 0 6 3 6 6l-8 8-4-4z"/><path d="M8 14l-3 1 1-4 2-1M10 16l-1 3 4-1 1-2"/><circle cx="15" cy="9" r="1.3"/></symbol>
+<symbol id="i-diamond" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M7 4h10l4 5-9 11L3 9z"/><path d="M3 9h18M9 4l3 5 3-5"/></symbol>
+<symbol id="i-cursor" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M6 4l12 8-5 1.5L15 20l-3 1-2-6.5L6 17z"/></symbol>
+<symbol id="i-list" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M7 13h7M7 16h5"/></symbol>
+<symbol id="i-gear" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 3l1.5 2.2 2.6-.6.6 2.6L19 8.7l-1 2.4 1.7 2.1-2.1 1.7.4 2.6-2.6.6-.9 2.5-2.5-.9-2.1 1.7L8.3 19l-2.6-.6.4-2.6L4 14.1 5.7 12 4.7 9.6l2.3-1.5-.4-2.6 2.6-.4z"/></symbol>
+<symbol id="i-cloud" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M7 18a4 4 0 01-.5-8 5.5 5.5 0 0110.7 1.5A3.5 3.5 0 0117 18z"/></symbol>
+<symbol id="i-target" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><path d="M12 4v2M20 12h-2"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4.5 4.5L19 7"/></symbol>
+<symbol id="i-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+<symbol id="i-doc" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4M9 12h6M9 16h6"/></symbol>
+<symbol id="i-scan" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M6 3h8l4 4v6"/><path d="M14 3v4h4M6 3v18h6"/><circle cx="16.5" cy="17.5" r="3"/><path d="M19 20l2 2"/></symbol>
+<symbol id="i-layout" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M10 10v10"/></symbol>
+<symbol id="i-check-circle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></symbol>
+<symbol id="i-megaphone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M4 10v4h3l7 4V6l-7 4z"/><path d="M17 9a4 4 0 010 6"/></symbol>
+<symbol id="i-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 018 0v3"/><circle cx="12" cy="15.5" r="1.3"/></symbol>
+<symbol id="i-google" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M19.5 10.5H12v3h4.3A4.7 4.7 0 1112 7.3a4.7 4.7 0 013.2 1.3"/></symbol>
+<symbol id="i-flag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M5 21V4M5 4h12l-3 4 3 4H5"/></symbol>
+<symbol id="i-chess" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M8 21h8M9 18h6l-1-3H10zM10 15c0-3-2-4-2-7l2-2h4l2 2c0 3-2 4-2 7"/></symbol>
+<symbol id="i-handshake" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l4-3 5 2 5-2 4 3-3 7-4 3-3-1-3 1-4-3z"/><path d="M12 8l-3 3 2 2 3-2"/></symbol>
+<symbol id="i-mobile" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="7" y="2.5" width="10" height="19" rx="2"/><path d="M11 18h2"/></symbol>
+<symbol id="i-monitor" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></symbol>
+<symbol id="i-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 12s4-6 10-6 10 6 10 6-4 6-10 6S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+<symbol id="i-sliders" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M4 7h10M18 7h2M4 12h3M11 12h9M4 17h12M20 17h0"/><circle cx="16" cy="7" r="2"/><circle cx="9" cy="12" r="2"/><circle cx="18" cy="17" r="2"/></symbol>
+<symbol id="i-refresh" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12a8 8 0 01-14 5.3M4 12a8 8 0 0114-5.3"/><path d="M4 4v5h5M20 20v-5h-5"/></symbol>
+<symbol id="i-sparkle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M12 3l2 6 6 2-6 2-2 6-2-6-6-2 6-2z"/></symbol>
+<symbol id="i-funnel" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M3 5h18l-7 8v6l-4-2v-4z"/></symbol>
+<symbol id="i-heart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M12 20s-7-4.5-7-10a4 4 0 017-2.5A4 4 0 0119 10c0 5.5-7 10-7 10z"/></symbol>
+<symbol id="i-server" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4" y="4" width="16" height="6" rx="1.5"/><rect x="4" y="14" width="16" height="6" rx="1.5"/><path d="M8 7h.01M8 17h.01"/></symbol>
+<symbol id="i-euro" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M17 6.5A6 6 0 1017 17.5M5 10h9M5 14h9"/></symbol>
+<symbol id="i-image" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 16l5-5 4 4 3-3 6 6"/><circle cx="16" cy="9" r="1.5"/></symbol>
+<symbol id="i-kirby" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M9 7v10M15 7l-5 5 5 5"/></symbol>
+<symbol id="i-arrow" viewBox="0 0 90 40" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h78M68 8l14 12-14 12"/></symbol>
+<symbol id="i-wave" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M4 12c2-4 4-4 6 0s4 4 6 0 4-4 6 0"/></symbol>
+<symbol id="i-star" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/></symbol>
+</defs>
+</svg>
+
+<div id="stage">
+<!-- ============ FOLIE 1 · Titel ============ -->
+<section class="slide" id="s01" data-title="Titel" data-autoplay="260">
+  <div class="trapez"></div>
+  <div class="hdr"><span class="logo">FESER <svg><use href="#i-clover"/></svg> GRAF</span><span class="rule"></span></div>
+  <h1>Website-Relaunch<br>der Feser-Graf Gruppe</h1>
+  <p class="lead">Von einer erfolgreichen Website zur digitalen Vertriebs- und Serviceplattform</p>
+  <p class="sub">Warum wir uns für synaigy entschieden haben und wie wir <b>feser-graf.de</b> gemeinsam weiterentwickeln</p>
+  <div class="foot">
+    <div><b>Geschäftsführung</b><span data-cfg="date">August 2026</span></div> <!-- TODO prüfen: Datum („August 2026“ vs. Termin 28.09.2026) → CONFIG.date -->
+    <div><b>Projektleitung</b>Kathrin Feser<br>Michael Mayr</div>
+  </div>
+  <div class="co">In Zusammenarbeit mit <b>synaigy</b></div>
+  <div class="hub" data-hub="title"></div>
+</section>
+
+<!-- ============ FOLIE 2 · Ausgangslage ============ -->
+<section class="slide" id="s02" data-title="Ausgangslage">
+  <div class="hdr"><span class="logo">FESER <svg><use href="#i-clover"/></svg> GRAF</span><span class="rule"></span></div>
+  <p class="eyebrow">Ausgangslage</p>
+  <h1>Warum wir handeln müssen</h1>
+  <p class="sub">Unsere Website besitzt ein starkes Fundament. Damit sie auch in Zukunft Marktführer bleibt, müssen zentrale digitale Herausforderungen gelöst werden.</p>
+  <div class="cards c5">
+    <div class="card center" data-build="1"><div class="ic"><svg><use href="#i-clock"/></svg></div><h3>Aktualität</h3><p>Fahrzeugdaten werden heute zeitversetzt aktualisiert. Dadurch sehen Kunden teilweise bereits verkaufte Fahrzeuge.</p></div>
+    <div class="card center" data-build="2"><div class="ic"><svg><use href="#i-search"/></svg></div><h3>Nutzerführung</h3><p>Die Website bietet viele Inhalte, führt Besucher jedoch nicht immer schnell zum gewünschten Ziel.</p></div>
+    <div class="card center" data-build="3"><div class="ic"><svg><use href="#i-nodes"/></svg></div><h3>Abhängigkeiten</h3><p>Zentrale Funktionen wie die Fahrzeugsuche liegen heute teilweise außerhalb unserer eigenen Plattform.</p></div>
+    <div class="card center" data-build="4"><div class="ic"><svg><use href="#i-chart"/></svg></div><h3>Skalierbarkeit</h3><p>Neue Marken, Angebote und Funktionen erfordern heute noch hohen manuellen Aufwand.</p></div>
+    <div class="card center" data-build="5"><div class="ic"><svg><use href="#i-shield-star"/></svg></div><h3>Markenwirkung</h3><p>Die Größe, Kompetenz und Marktposition der Feser-Graf Gruppe werden digital noch nicht vollständig sichtbar.</p></div>
+  </div>
+  <div class="path">
+    <div class="box"><svg><use href="#i-layout"/></svg></div><label>Heute</label>
+    <div class="arr"></div>
+    <div class="box g"><svg><use href="#i-gear"/></svg></div><label>Weiterentwicklung</label>
+    <div class="arr"></div>
+    <div class="box n"><svg><use href="#i-nodes"/></svg></div><label>Zukünftige Plattform</label>
+  </div>
+  <div class="banner" data-build="6"><b>Die bestehende Website ist erfolgreich und besitzt ein gutes Fundament.</b><span>Sie kann die zukünftigen Anforderungen der Feser-Graf Gruppe jedoch nicht mehr vollständig abbilden.</span></div>
+</section>
+
+<!-- ============ FOLIE 3 · Agenturauswahl ============ -->
+<section class="slide" id="s03" data-title="Agenturauswahl">
+  <div class="hdr"><span class="logo">FESER <svg><use href="#i-clover"/></svg> GRAF</span><span class="rule"></span></div>
+  <p class="eyebrow">Agenturauswahl</p>
+  <h1>Warum synaigy die richtige Wahl ist</h1>
+  <p class="sub">Die Agentur überzeugte nicht durch ein neues Design, sondern durch ein tiefes Verständnis unseres Geschäftsmodells und unserer digitalen Vertriebsstrategie.</p>
+  <div class="cards c4">
+    <div class="card center" data-build="1"><div class="ic"><svg><use href="#i-car"/></svg></div><h3>Automotive-Verständnis</h3><ul><li>Erfahrung mit komplexen Automotive-Projekten</li><li>Verständnis digitaler Vertriebsprozesse</li><li>Erfahrung mit Fahrzeugplattformen</li></ul></div>
+    <div class="card center" data-build="1"><div class="ic"><svg><use href="#i-compass"/></svg></div><h3>Strategie &amp; Beratung</h3><ul><li>Analyse vor Umsetzung</li><li>Langfristige Plattformstrategie</li><li>Fokus auf Geschäftsnutzen</li></ul></div>
+    <div class="card center" data-build="1"><div class="ic"><svg><use href="#i-user"/></svg></div><h3>User Experience &amp; Conversion</h3><ul><li>Kundenzentrierte Nutzerführung</li><li>Optimierung der Leadstrecken</li><li>Mobile First</li></ul></div>
+    <div class="card center" data-build="1"><div class="ic"><svg><use href="#i-code"/></svg></div><h3>Technologie &amp; Betrieb</h3><ul><li>Aufbau auf bestehendem Kirby-System</li><li>Skalierbare Architektur</li><li>Langfristige Weiterentwicklung</li></ul></div>
+  </div>
+  <div class="cmp">
+    <div class="col bad" data-build="2" data-dim-at="3"><h4>Klassischer Agenturansatz</h4><ul>
+      <li><svg><use href="#i-x"/></svg>Fokus auf Design</li><li><svg><use href="#i-x"/></svg>Neues System</li><li><svg><use href="#i-x"/></svg>Einmaliger Relaunch</li><li><svg><use href="#i-x"/></svg>Technik im Vordergrund</li><li><svg><use href="#i-x"/></svg>Projektende nach Go-live</li></ul></div>
+    <div class="arr" data-build="3"><svg><use href="#i-arrow"/></svg></div>
+    <div class="col good" data-build="3"><h4>Unser gemeinsamer Ansatz</h4><ul>
+      <li><svg><use href="#i-check"/></svg>Bestehende Stärken erhalten</li><li><svg><use href="#i-check"/></svg>Geschäftsmodell verstehen</li><li><svg><use href="#i-check"/></svg>Plattform kontinuierlich weiterentwickeln</li><li><svg><use href="#i-check"/></svg>Datenbasierte Entscheidungen</li><li><svg><use href="#i-check"/></svg>Langfristige Partnerschaft</li></ul></div>
+  </div>
+  <div class="banner" data-build="4"><b>synaigy hat nicht nur eine Website vorgestellt.</b><span>Die Agentur hat unser Geschäftsmodell, unsere Prozesse und unsere digitalen Vertriebswege verstanden.</span></div>
+</section>
+
+<!-- ============ FOLIE 4 · Unser Partner ============ -->
+<section class="slide" id="s04" data-title="Unser Partner">
+  <div class="hdr"><span class="logo">FESER <svg><use href="#i-clover"/></svg> GRAF</span><span class="rule"></span></div>
+  <p class="eyebrow">Unser Partner</p>
+  <h1>Warum wir uns für synaigy entschieden haben</h1>
+  <p class="sub">synaigy verbindet strategische Beratung, User Experience und Technologie zu einer langfristigen Partnerschaft.</p>
+  <div class="two">
+    <div class="panel" data-build="1"><h3>Unternehmensprofil</h3><div class="facts">
+      <div class="fact"><svg><use href="#i-calendar"/></svg><div><b class="count" data-to="2000" data-plain="1">2000</b><span>Gegründet · über 20 Jahre Erfahrung in digitalen Projekten</span></div></div>
+      <div class="fact"><svg><use href="#i-users"/></svg><div><b><span class="count" data-to="200">200</span>+</b><span>Mitarbeitende · interdisziplinäres Team aus Strategie, Design und Tech</span></div></div>
+      <div class="fact"><svg><use href="#i-pin"/></svg><div><b class="count" data-to="5">5</b><span>Standorte in Deutschland: München, Stuttgart, Köln, Frankfurt, Hamburg</span></div></div>
+      <div class="fact"><svg><use href="#i-building"/></svg><div><b class="txt">Teil der TIMETOACT Group</b><span>Starkes Netzwerk für digitale Transformation</span></div></div>
+      <div class="fact"><svg><use href="#i-car"/></svg><div><b class="txt">Automotive-Expertise</b><span>Langjährige Erfahrung in der Automobilbranche und im Automotive Retail</span></div></div>
+      <div class="fact"><svg><use href="#i-layout"/></svg><div><b class="txt">Digitale Plattformen</b><span>Konzeption, Entwicklung und Betrieb komplexer digitaler Plattformlösungen</span></div></div>
+      <div class="fact"><svg><use href="#i-puzzle"/></svg><div><b class="txt">Kirby-Expertise</b><span>Erfahren in Projekten auf Basis von Kirby CMS</span></div></div>
+      <div class="fact"><svg><use href="#i-globe"/></svg><div><b class="txt">Internationale Projekte</b><span>Umsetzung von Projekten für Marken und Unternehmen im In- und Ausland</span></div></div>
+    </div></div>
+    <div class="panel" data-build="2"><h3>Warum synaigy zu Feser-Graf passt</h3><div class="why">
+      <div class="fact"><svg><use href="#i-target"/></svg><div><b class="txt">Automotive-Kompetenz</b><span>Wir verstehen die Anforderungen des Automotive Retail und sprechen die gleiche Sprache.</span></div></div>
+      <div class="fact"><svg><use href="#i-handshake"/></svg><div><b class="txt">Langfristiger Partner</b><span>Wir denken in Partnerschaften, nicht in Projekten, für eine nachhaltige Zusammenarbeit.</span></div></div>
+      <div class="fact"><svg><use href="#i-compass"/></svg><div><b class="txt">Strategischer Ansatz</b><span>Wir starten mit Zielen und Strategie und entwickeln daraus die passende digitale Lösung.</span></div></div>
+      <div class="fact"><svg><use href="#i-user"/></svg><div><b class="txt">User Experience &amp; Conversion</b><span>Wir gestalten nutzerzentrierte Erlebnisse, die überzeugen und nachweislich konvertieren.</span></div></div>
+      <div class="fact"><svg><use href="#i-code"/></svg><div><b class="txt">Technologische Kompetenz</b><span>Wir setzen auf moderne, skalierbare Technologien und nachhaltige Architekturen.</span></div></div>
+      <div class="fact"><svg><use href="#i-chart"/></svg><div><b class="txt">Kontinuierliche Weiterentwicklung</b><span>Wir verbessern, analysieren und entwickeln laufend weiter, datengetrieben und zukunftssicher.</span></div></div>
+    </div></div>
+  </div>
+  <div class="refs" data-build="3"><h4>Ausgewählte Referenzen</h4><ul><li>mobile.de</li><li>Porsche</li><li>VW</li><li>Audi</li><li>SEAT</li><li>CUPRA</li><li>Škoda</li><li>Allianz</li><li>LVM Versicherung</li></ul></div>
+  <div class="banner" data-build="4" style="bottom:40px;padding:16px 40px"><b style="font-size:26px">Wir haben keine Agentur für einen Relaunch gesucht.</b><span style="font-size:19px">Wir haben einen langfristigen Partner für die digitale Weiterentwicklung der Feser-Graf Gruppe ausgewählt.</span></div>
+</section>
+
+<!-- ============ FOLIE 5 · SYN Team ============ -->
+<section class="slide syn" id="s05" data-title="synaigy Team">
+  <div class="hdr"><span class="logo">FESER <svg><use href="#i-clover"/></svg> GRAF</span><span class="rule"></span></div>
+  <span class="chip">Ergänzung synaigy</span>
+  <p class="eyebrow">synaigy Team</p>
+  <h1>Wer bei synaigy für Feser-Graf steht</h1>
+  <p class="sub">Vier feste Ansprechpartner begleiten Feser-Graf von der Strategie bis in den laufenden Betrieb.</p>
+  <div class="team">
+    <div class="person" data-build="1"><div class="avatar"><img src="team-rahimi.jpg" alt=""><span>JR</span></div><h3>Jubine Rahimi</h3><span class="role">CEO synaigy</span><ul><li>Über 20 Jahre Erfahrung im E-Commerce</li><li>Ansprechpartner auf Ebene der Geschäftsführung</li></ul></div> <!-- TODO prüfen: Schreibweise „Jubine Rahimi“ -->
+    <div class="person" data-build="2"><div class="avatar"><img src="team-cloppenburg.jpg" alt=""><span>KC</span></div><h3>Klaus Cloppenburg</h3><span class="role">Plattform-Experte</span><ul><li>Hat mobile.de mit aufgebaut</li><li>Große Plattformen für eBay Kleinanzeigen, Liebherr, Stihl</li><li>Aktuell Heraeus</li></ul></div> <!-- TODO prüfen: Titel von Klaus Cloppenburg -->
+    <div class="person" data-build="3"><div class="avatar"><img src="team-seyppel.jpg" alt=""><span>WS</span></div><h3>Wolfgang Seyppel</h3><span class="role">Chief Delivery Officer</span><ul><li>Verantwortet Umsetzung und Teamaufstellung</li><li>Sichert die besten Köpfe für Feser-Graf</li></ul></div>
+    <div class="person" data-build="4"><div class="avatar"><img src="team-stolarski.jpg" alt=""><span>CS</span></div><h3>Christoph Stolarski</h3><span class="role">Client Strategy Partner</span><ul><li>Zentraler Ansprechpartner für Feser-Graf</li><li>Kennt Agentur- und Auftraggeberseite</li><li>Fokus: Geschäftsnutzen jeder Investition</li></ul></div>
+  </div>
+  <div class="banner" data-build="5"><b>Erfahrung aus mobile.de trifft Automotive Retail.</b><span>Wir kennen die Plattformen, auf denen Ihre Kunden heute Fahrzeuge suchen und vergleichen.</span></div>
+  <aside class="notes">Christoph stellt das Team vor. Bei Klaus die mobile.de-Erfahrung betonen, denn die Geschäftsführung wird danach fragen. Fotos: team-rahimi.jpg, team-cloppenburg.jpg, team-seyppel.jpg, team-stolarski.jpg neben die HTML-Datei legen.</aside>
+</section>
+
+<!-- ============ FOLIE 6 · Zielbild ============ -->
+<section class="slide" id="s06" data-title="Zielbild">
+  <div class="hdr"><span class="logo">FESER <svg><use href="#i-clover"/></svg> GRAF</span><span class="rule"></span></div>
+  <p class="eyebrow">Zielbild</p>
+  <h1>Unser gemeinsames Zielbild</h1>
+  <p class="sub">Wir entwickeln keine neue Website. Wir schaffen die zentrale digitale Plattform der Feser-Graf Gruppe.</p>
+  <div class="hub" data-hub="ziel"></div>
+  <div class="cards c3">
+    <div class="card row" data-build="2"><div class="ic"><svg><use href="#i-calendar"/></svg></div><div><h3>Heute</h3><div class="flow"><span>Website</span><span>Information</span><span>Anfrage</span></div></div></div>
+    <div class="card row" data-build="3"><div class="ic"><svg><use href="#i-rocket"/></svg></div><div><h3>Zukunft</h3><div class="flow"><span>Plattform</span><span>Beratung</span><span>Verkauf</span><span>Service</span><span>Kundenbindung</span></div></div></div>
+    <div class="card row" data-build="4"><div class="ic"><svg><use href="#i-diamond"/></svg></div><div><h3>Mehrwert</h3><ul><li>Mehr Leads</li><li>Mehr Service</li><li>Mehr Effizienz</li><li>Mehr Datenhoheit</li><li>Langfristig skalierbar</li></ul></div></div>
+  </div>
+  <div class="banner" data-build="5" style="bottom:40px;padding:16px 40px"><b style="font-size:26px">Die Website wird zur digitalen Plattform für Vertrieb, Service und Marke.</b><span style="font-size:19px">Sie wächst kontinuierlich mit der Feser-Graf Gruppe und bildet die Grundlage für zukünftige digitale Entwicklungen.</span></div>
+</section>
+
+<!-- ============ FOLIE 7 · Projektbausteine ============ -->
+<section class="slide" id="s07" data-title="Projektbausteine">
+  <div class="hdr"><span class="logo">FESER <svg><use href="#i-clover"/></svg> GRAF</span><span class="rule"></span></div>
+  <p class="eyebrow">Projektbausteine</p>
+  <h1>Die sechs zentralen Projektbausteine</h1>
+  <p class="sub">Der Website-Relaunch umfasst weit mehr als ein neues Design. Er verbessert Nutzererlebnis, Datenqualität, Prozesse und technische Zukunftssicherheit.</p>
+  <div class="tiles">
+    <div class="tile" data-build="1"><div class="no">01</div><div class="ic"><svg><use href="#i-cursor"/></svg></div><div><h3>Nutzerführung &amp; Conversion</h3><ul><li>Klare Einstiege und Navigation</li><li>Kürzere Wege zur Anfrage</li><li>Mobile First</li></ul></div></div>
+    <div class="tile" data-build="1"><div class="no">02</div><div class="ic"><svg><use href="#i-list"/></svg></div><div><h3>Marken-, Modell- &amp; Angebotsseiten</h3><ul><li>Einheitliche Seitenstruktur</li><li>Bessere Verknüpfung</li><li>Mehr Übersicht</li></ul></div></div>
+    <div class="tile" data-build="1"><div class="no">03</div><div class="ic"><svg><use href="#i-search"/></svg></div><div><h3>Neue Fahrzeugsuche</h3><ul><li>Eigene Suchinfrastruktur</li><li>Mehr Filter und Komfort</li><li>Bessere Integration</li></ul></div></div>
+    <div class="tile" data-build="2"><div class="no">04</div><div class="ic"><svg><use href="#i-db"/></svg></div><div><h3>Echtzeit-Fahrzeugdaten</h3><ul><li>Direkte API-Anbindung</li><li>Schnellere Aktualisierung</li><li>Weniger veraltete Fahrzeuge</li></ul></div></div>
+    <div class="tile" data-build="2"><div class="no">05</div><div class="ic"><svg><use href="#i-gear"/></svg></div><div><h3>Angebotsautomatisierung</h3><ul><li>Automatisierte Prozesse</li><li>Weniger manueller Aufwand</li><li>Schnellere Veröffentlichung</li></ul></div></div>
+    <div class="tile" data-build="2"><div class="no">06</div><div class="ic"><svg><use href="#i-shield"/></svg></div><div><h3>Technische Stabilisierung</h3><ul><li>Zukunftssichere Plattform</li><li>Höhere Performance</li><li>Monitoring &amp; Dokumentation</li></ul></div></div>
+  </div>
+  <div class="banner" data-build="3"><b>Alle Projektbausteine verfolgen ein gemeinsames Ziel.</b><span>Eine leistungsfähige Plattform, die Vertrieb, Service und Marketing langfristig unterstützt.</span></div>
+</section>
+
+<!-- ============ FOLIE 8 · Fahrzeugsuche ============ -->
+<section class="slide proc-slide" id="s08" data-title="Fahrzeugsuche">
+  <div class="hdr"><span class="logo">FESER <svg><use href="#i-clover"/></svg> GRAF</span><span class="rule"></span></div>
+  <p class="eyebrow">Fahrzeugsuche</p>
+  <h1>Die neue Fahrzeugsuche als Herzstück der Plattform</h1>
+  <p class="sub">Die Fahrzeugsuche wird zum zentralen Einstiegspunkt für den digitalen Fahrzeugverkauf. Sie verbindet Kunden, Fahrzeuge, Finanzierung und Service auf einer Plattform.</p>
+  <div class="process">
+    <div class="step" data-build="1"><span class="no">1</span><div class="ring"><svg><use href="#i-db"/></svg></div><h4>AOS24</h4><p>Aktuelle Fahrzeugdaten</p><span class="arrow"><i></i></span></div>
+    <div class="step" data-build="2"><span class="no">2</span><div class="ring"><svg><use href="#i-cloud"/></svg></div><h4>Echtzeitdaten</h4><p>Direkte API-Anbindung</p><span class="arrow"><i></i></span></div>
+    <div class="step" data-build="3"><span class="no">3</span><div class="ring"><svg><use href="#i-search"/></svg></div><h4>Eigene Suchplattform</h4><p>Schnell, flexibel, skalierbar</p><span class="arrow"><i></i></span></div>
+    <div class="step" data-build="4"><span class="no">4</span><div class="ring"><svg><use href="#i-car"/></svg></div><h4>Fahrzeugsuche</h4><p>Filter, Suche, Vergleich</p><span class="arrow"><i></i></span></div>
+    <div class="step" data-build="5"><span class="no">5</span><div class="ring"><svg><use href="#i-user"/></svg></div><h4>Kundenentscheidung</h4><p>Merkliste, Suchagent, Finanzierung</p><span class="arrow"><i></i></span></div>
+    <div class="step" data-build="6"><span class="no">6</span><div class="ring"><svg><use href="#i-target"/></svg></div><h4>Qualifizierter Lead</h4><p>Anfrage oder Probefahrt</p><span class="arrow"><i></i></span></div>
+  </div>
+  <div class="cards c4">
+    <div class="card row" data-build="7"><div class="ic"><svg><use href="#i-users"/></svg></div><div><h3>Für unsere Kunden</h3><ul><li>Aktuellere Fahrzeugsuche</li><li>Mehr Komfort</li><li>Weniger Klicks</li></ul></div></div>
+    <div class="card row" data-build="7"><div class="ic"><svg><use href="#i-chart"/></svg></div><div><h3>Für den Vertrieb</h3><ul><li>Höhere Leadqualität</li><li>Weniger Streuverluste</li><li>Schnellere Anfragen</li></ul></div></div>
+    <div class="card row" data-build="7"><div class="ic"><svg><use href="#i-megaphone"/></svg></div><div><h3>Für Marketing</h3><ul><li>Mehr Datenqualität</li><li>Bessere Auswertungen</li><li>Optimierbare Customer Journey</li></ul></div></div>
+    <div class="card row" data-build="7"><div class="ic"><svg><use href="#i-rocket"/></svg></div><div><h3>Für die Zukunft</h3><ul><li>Skalierbare Plattform</li><li>Grundlage für KI</li><li>Kontinuierliche Weiterentwicklung</li></ul></div></div>
+  </div>
+  <div class="banner" data-build="8" style="bottom:40px;padding:16px 40px"><b style="font-size:26px">Die Fahrzeugsuche wird vom einzelnen Modul zum digitalen Herzstück der gesamten Plattform.</b><span style="font-size:19px">Sie verbindet Daten, Nutzer und Vertrieb in einem durchgängigen digitalen Prozess.</span></div>
+</section>
+
+<!-- ============ FOLIEN 9–13 · SYN Designvorschläge ============ -->
+<section class="slide syn design" id="s09" data-title="Design 1/5 Startseite">
+  <div class="hdr"><span class="logo">FESER <svg><use href="#i-clover"/></svg> GRAF</span><span class="rule"></span></div>
+  <span class="chip">Ergänzung synaigy</span>
+  <p class="eyebrow">Designvorschlag 1/5 · Startseite</p>
+  <h1>Gefunden wie von selbst</h1>
+  <p class="sub">Die Startseite führt über die Absicht der Kunden, nicht über die interne Struktur von Feser-Graf.</p>
+  <div class="stagebox">
+    <div class="mocks">
+      <div class="desktop" data-lb="design-01-startseite-desktop.png"><div class="bar"><i></i><i></i><i></i><span class="url">feser-graf.de</span></div><div class="slot"><img src="design-01-startseite-desktop.png" alt="Startseite Desktop"><div class="ph"><div><svg><use href="#i-image"/></svg><b>Desktop-Screen Startseite</b><code>design-01-startseite-desktop.png</code></div></div></div></div>
+      <div class="mobile" data-lb="design-01-startseite-mobile.png"><div class="slot"><img src="design-01-startseite-mobile.png" alt="Startseite Mobile"><div class="ph"><div><svg><use href="#i-mobile"/></svg><b>Mobile</b><code>design-01-startseite-mobile.png</code></div></div></div></div>
+    </div>
+    <div class="side">
+      <h3>Was der Entwurf zeigt</h3>
+      <ul>
+        <li data-build="1"><svg><use href="#i-check-circle"/></svg>Einstiege nach Absicht: Fahrzeuge, Leasing &amp; Finanzierung, Service &amp; Werkstatt, Geschäftskunden</li>
+        <li data-build="2"><svg><use href="#i-check-circle"/></svg>Suche direkt im ersten Blickfeld</li>
+        <li data-build="3"><svg><use href="#i-check-circle"/></svg>Konsequent Mobile first</li>
+      </ul>
+      <div class="benefit" data-build="4"><b>Nutzen</b>Kürzere Wege zur Anfrage</div>
+      <div class="toggle"><button class="on" data-view="both">Desktop + Mobile</button><button data-view="mobile">Nur Mobile</button></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide syn design" id="s10" data-title="Design 2/5 Fahrzeugsuche">
+  <div class="hdr"><span class="logo">FESER <svg><use href="#i-clover"/></svg> GRAF</span><span class="rule"></span></div>
+  <span class="chip">Ergänzung synaigy</span>
+  <p class="eyebrow">Designvorschlag 2/5 · Fahrzeugsuche</p>
+  <h1>Suchen, wie man spricht</h1>
+  <p class="sub">Strukturierte Filter und KI-Suche in einem Einstieg. Neuwagen, Angebote und Gebrauchtwagen in einer Suche.</p>
+  <div class="stagebox">
+    <div class="mocks">
+      <div class="desktop" data-lb="design-02-suche-desktop.png"><div class="bar"><i></i><i></i><i></i><span class="url">feser-graf.de/fahrzeuge</span></div><div class="slot"><img src="design-02-suche-desktop.png" alt="Fahrzeugsuche Desktop"><div class="ph"><div><svg><use href="#i-image"/></svg><b>Desktop-Screen Fahrzeugsuche</b><code>design-02-suche-desktop.png</code></div></div></div></div>
+      <div class="mobile" data-lb="design-02-suche-mobile.png"><div class="slot"><img src="design-02-suche-mobile.png" alt="Fahrzeugsuche Mobile"><div class="ph"><div><svg><use href="#i-mobile"/></svg><b>Mobile</b><code>design-02-suche-mobile.png</code></div></div></div></div>
+    </div>
+    <div class="side">
+      <h3>Was der Entwurf zeigt</h3>
+      <ul>
+        <li data-build="1"><svg><use href="#i-check-circle"/></svg>Freitextsuche, z. B. „Familien-SUV, kein Diesel“</li>
+        <li data-build="2"><svg><use href="#i-check-circle"/></svg>KI-Zusammenfassung der Trefferliste</li>
+        <li data-build="3"><svg><use href="#i-check-circle"/></svg>Keine Trennung zwischen Angeboten und Gebrauchtwagen</li>
+      </ul>
+      <div class="benefit" data-build="4"><b>Nutzen</b>Weniger Absprünge vor der Anfrage</div>
+      <div class="toggle"><button class="on" data-view="both">Desktop + Mobile</button><button data-view="mobile">Nur Mobile</button></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide syn design" id="s11" data-title="Design 3/5 Detailseite">
+  <div class="hdr"><span class="logo">FESER <svg><use href="#i-clover"/></svg> GRAF</span><span class="rule"></span></div>
+  <span class="chip">Ergänzung synaigy</span>
+  <p class="eyebrow">Designvorschlag 3/5 · Fahrzeug-Detailseite</p>
+  <h1>Alles für die Entscheidung auf einer Seite</h1>
+  <p class="sub">Die Detailseite beantwortet die Kauf- und Finanzierungsfrage, bevor der Kunde anruft.</p>
+  <div class="stagebox">
+    <div class="mocks">
+      <div class="desktop" data-lb="design-03-detailseite-desktop.png"><div class="bar"><i></i><i></i><i></i><span class="url">feser-graf.de/fahrzeuge/…</span></div><div class="slot"><img src="design-03-detailseite-desktop.png" alt="Detailseite Desktop"><div class="ph"><div><svg><use href="#i-image"/></svg><b>Desktop-Screen Detailseite</b><code>design-03-detailseite-desktop.png</code></div></div></div></div>
+      <div class="mobile" data-lb="design-03-detailseite-mobile.png"><div class="slot"><img src="design-03-detailseite-mobile.png" alt="Detailseite Mobile"><div class="ph"><div><svg><use href="#i-mobile"/></svg><b>Mobile</b><code>design-03-detailseite-mobile.png</code></div></div></div></div>
+    </div>
+    <div class="side">
+      <h3>Was der Entwurf zeigt</h3>
+      <ul>
+        <li data-build="1"><svg><use href="#i-check-circle"/></svg>Finanzierungs- und Leasingrechner prominent platziert</li>
+        <li data-build="2"><svg><use href="#i-check-circle"/></svg>Eigene Ansicht für Geschäftskunden</li>
+        <li data-build="3"><svg><use href="#i-check-circle"/></svg>Sticky Conversion-Element: Probefahrt, Anfrage oder Rückruf je nach Kontext</li>
+      </ul>
+      <div class="benefit" data-build="4"><b>Nutzen</b>Mehr qualifizierte Leads</div>
+      <div class="toggle"><button class="on" data-view="both">Desktop + Mobile</button><button data-view="mobile">Nur Mobile</button></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide syn design" id="s12" data-title="Design 4/5 Angebotsseiten">
+  <div class="hdr"><span class="logo">FESER <svg><use href="#i-clover"/></svg> GRAF</span><span class="rule"></span></div>
+  <span class="chip">Ergänzung synaigy</span>
+  <p class="eyebrow">Designvorschlag 4/5 · Angebotsseiten</p>
+  <h1>Ein Template für Marke, Modell und Angebot</h1>
+  <p class="sub">Heute konkurrieren Marken-, Modell- und Angebotsseiten miteinander. Künftig trägt ein Template alle drei.</p>
+  <div class="stagebox">
+    <div class="mocks">
+      <div class="desktop" data-lb="design-04-angebotsseiten-desktop.png"><div class="bar"><i></i><i></i><i></i><span class="url">feser-graf.de/angebote</span></div><div class="slot"><img src="design-04-angebotsseiten-desktop.png" alt="Angebotsseiten Desktop"><div class="ph"><div><svg><use href="#i-image"/></svg><b>Desktop-Screen Angebotsseiten</b><code>design-04-angebotsseiten-desktop.png</code></div></div></div></div>
+      <div class="mobile" data-lb="design-04-angebotsseiten-mobile.png"><div class="slot"><img src="design-04-angebotsseiten-mobile.png" alt="Angebotsseiten Mobile"><div class="ph"><div><svg><use href="#i-mobile"/></svg><b>Mobile</b><code>design-04-angebotsseiten-mobile.png</code></div></div></div></div>
+    </div>
+    <div class="side">
+      <h3>Was der Entwurf zeigt</h3>
+      <ul>
+        <li data-build="1"><svg><use href="#i-check-circle"/></svg>Einheitliche Struktur für alle Marken</li>
+        <li data-build="2"><svg><use href="#i-check-circle"/></svg>Stärkt die Google-Sichtbarkeit statt sie aufzuteilen</li>
+        <li data-build="3"><svg><use href="#i-check-circle"/></svg>Automatisch aus Hersteller-PDFs befüllbar</li>
+      </ul>
+      <div class="benefit" data-build="4"><b>Nutzen</b>Mehr Sichtbarkeit, weniger Pflegeaufwand</div>
+      <div class="toggle"><button class="on" data-view="both">Desktop + Mobile</button><button data-view="mobile">Nur Mobile</button></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide syn design" id="s13" data-title="Design 5/5 Navigation">
+  <div class="hdr"><span class="logo">FESER <svg><use href="#i-clover"/></svg> GRAF</span><span class="rule"></span></div>
+  <span class="chip">Ergänzung synaigy</span>
+  <p class="eyebrow">Designvorschlag 5/5 · Navigation &amp; Header</p>
+  <h1>Klare Orientierung für Privat- und Geschäftskunden</h1>
+  <p class="sub">Header und Navigation machen die neue Struktur auf jedem Gerät sofort verständlich.</p>
+  <div class="stagebox">
+    <div class="mocks">
+      <div class="desktop plain" data-lb="design-05-header-desktop.png"><div class="bar"></div><div class="slot"><img src="design-05-header-desktop.png" alt="Header Desktop mit Privat/Gewerblich"><img src="design-05-header-desktop-2.png" alt="Header Desktop mit sichtbarer Hauptnavigation"><div class="ph"><div><svg><use href="#i-image"/></svg><b>Header Desktop</b><code>design-05-header-desktop.png</code></div></div></div></div>
+      <div class="mobile plain" data-lb="design-05-header-mobile.png"><div class="slot"><img src="design-05-header-mobile.png" alt="Header Mobile"><div class="ph"><div><svg><use href="#i-mobile"/></svg><b>Mobile</b><code>design-05-header-mobile.png</code></div></div></div></div>
+    </div>
+    <div class="side">
+      <h3>Was der Entwurf zeigt</h3>
+      <ul>
+        <li data-build="1"><svg><use href="#i-check-circle"/></svg>Header-Varianten inkl. Login-States</li>
+        <li data-build="2"><svg><use href="#i-check-circle"/></svg>Umschaltung Privat / Gewerbe</li>
+        <li data-build="3"><svg><use href="#i-check-circle"/></svg>Schneller Zugriff auf Suche und Kontakt, auch mobil</li>
+      </ul>
+      <div class="benefit" data-build="4"><b>Nutzen</b>Orientierung ab dem ersten Klick</div>
+      <div class="toggle"><button class="on" data-view="both">Desktop + Mobile</button><button data-view="mobile">Nur Mobile</button></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOLIE 14 · Automatisierung ============ -->
+<section class="slide proc-slide" id="s14" data-title="Automatisierung">
+  <div class="hdr"><span class="logo">FESER <svg><use href="#i-clover"/></svg> GRAF</span><span class="rule"></span></div>
+  <p class="eyebrow">Automatisierung</p>
+  <h1>Mehr Effizienz durch Automatisierung</h1>
+  <p class="sub">Wiederkehrende Marketingprozesse werden automatisiert vorbereitet. Die inhaltliche Kontrolle bleibt jederzeit bei der Feser-Graf Gruppe.</p>
+  <div class="process">
+    <div class="step" data-build="1"><span class="no">1</span><div class="ring"><svg><use href="#i-doc"/></svg></div><h4>Herstellerangebot</h4><p>PDF oder Aktionsunterlagen</p><span class="arrow"><i></i></span></div>
+    <div class="step" data-build="2"><span class="no">2</span><div class="ring"><svg><use href="#i-scan"/></svg></div><h4>Automatische Verarbeitung</h4><p>Inhalte werden erkannt</p><span class="arrow"><i></i></span></div>
+    <div class="step" data-build="3"><span class="no">3</span><div class="ring"><svg><use href="#i-layout"/></svg></div><h4>Seitenentwurf</h4><p>Angebotsseite wird vorbereitet</p><span class="arrow"><i></i></span></div>
+    <div class="step human" data-build="4"><span class="no">4</span><div class="ring"><svg><use href="#i-check-circle"/></svg></div><h4>Redaktion</h4><p>Prüfen und freigeben</p><span class="arrow"><i></i></span></div>
+    <div class="step" data-build="5"><span class="no">5</span><div class="ring"><svg><use href="#i-rocket"/></svg></div><h4>Veröffentlichung</h4><p>Website geht online</p><span class="arrow"><i></i></span></div>
+    <div class="step" data-build="6"><span class="no">6</span><div class="ring"><svg><use href="#i-chart"/></svg></div><h4>Optimierung</h4><p>Kontinuierliche Verbesserung</p><span class="arrow"><i></i></span></div>
+  </div>
+  <div class="cards c4">
+    <div class="card row" data-build="7"><div class="ic"><svg><use href="#i-clock"/></svg></div><div><h3>Zeitersparnis</h3><ul><li>Weniger Routinearbeit</li><li>Schnellere Umsetzung</li><li>Mehr Effizienz</li></ul></div></div>
+    <div class="card row" data-build="7"><div class="ic"><svg><use href="#i-star"/></svg></div><div><h3>Qualität</h3><ul><li>Einheitliche Inhalte</li><li>Weniger Fehler</li><li>Höhere Konsistenz</li></ul></div></div>
+    <div class="card row" data-build="7"><div class="ic"><svg><use href="#i-megaphone"/></svg></div><div><h3>Marketing</h3><ul><li>Schnellere Kampagnen</li><li>Mehr Flexibilität</li><li>Bessere Steuerung</li></ul></div></div>
+    <div class="card row" data-build="7"><div class="ic"><svg><use href="#i-shield"/></svg></div><div><h3>Wichtig</h3><ul><li>Keine automatische Veröffentlichung</li><li>Redaktion entscheidet</li><li>Mensch bleibt verantwortlich</li></ul></div></div>
+  </div>
+  <div class="banner" data-build="8" style="bottom:40px;padding:16px 40px"><b style="font-size:26px">Automatisierung ersetzt keine Entscheidungen.</b><span style="font-size:19px">Sie reduziert manuelle Routinearbeit und schafft mehr Zeit für Qualität und strategische Aufgaben.</span></div>
+</section>
+
+<!-- ============ FOLIE 15 · Projektumsetzung ============ -->
+<section class="slide proc-slide" id="s15" data-title="Projektumsetzung">
+  <div class="hdr"><span class="logo">FESER <svg><use href="#i-clover"/></svg> GRAF</span><span class="rule"></span></div>
+  <p class="eyebrow">Projektumsetzung</p>
+  <h1>Sicherer Relaunch statt riskanter Komplettumbau</h1>
+  <p class="sub">Die neue Plattform entsteht Schritt für Schritt. Der laufende Betrieb und bestehende Prozesse bleiben jederzeit abgesichert.</p>
+  <div class="process" style="padding:0 120px">
+    <div class="step" data-build="1"><span class="no">1</span><div class="ring"><svg><use href="#i-search"/></svg></div><h4>Analyse</h4><p>Bestehende Plattform verstehen</p><span class="arrow"><i></i></span></div>
+    <div class="step" data-build="2"><span class="no">2</span><div class="ring"><svg><use href="#i-nodes"/></svg></div><h4>Konzeption</h4><p>Neue Lösungen entwickeln</p><span class="arrow"><i></i></span></div>
+    <div class="step" data-build="3"><span class="no">3</span><div class="ring"><svg><use href="#i-code"/></svg></div><h4>Umsetzung</h4><p>Schrittweise Integration</p><span class="arrow"><i></i></span></div>
+    <div class="step" data-build="4"><span class="no">4</span><div class="ring"><svg><use href="#i-shield"/></svg></div><h4>Tests</h4><p>Prüfen und absichern</p><span class="arrow"><i></i></span></div>
+    <div class="step" data-build="5"><span class="no">5</span><div class="ring"><svg><use href="#i-rocket"/></svg></div><h4>Go-live</h4><p>Kontrollierte Veröffentlichung</p><span class="arrow"><i></i></span></div>
+  </div>
+  <div class="cards c4">
+    <div class="card row" data-build="6"><div class="ic"><svg><use href="#i-shield"/></svg></div><div><h3>Stabilität</h3><ul><li>Bestehendes Kirby-System bleibt erhalten</li><li>Bewährte Prozesse werden übernommen</li><li>Kein unnötiger Systemwechsel</li></ul></div></div>
+    <div class="card row" data-build="6"><div class="ic"><svg><use href="#i-lock"/></svg></div><div><h3>Sicherheit</h3><ul><li>Entwicklung in Testumgebungen</li><li>Kontrollierte Qualitätssicherung</li><li>Schrittweise Einführung</li></ul></div></div>
+    <div class="card row" data-build="6"><div class="ic"><svg><use href="#i-google"/></svg></div><div><h3>Google</h3><ul><li>Sichtbarkeit schützen</li><li>Weiterleitungen planen</li><li>SEO kontinuierlich begleiten</li></ul></div></div>
+    <div class="card row" data-build="6"><div class="ic"><svg><use href="#i-chart"/></svg></div><div><h3>Betrieb</h3><ul><li>Laufender Betrieb bleibt erhalten</li><li>Keine Unterbrechung der Leadgenerierung</li><li>Risiken werden minimiert</li></ul></div></div>
+  </div>
+  <div class="banner" data-build="7" style="bottom:40px;padding:16px 40px"><b style="font-size:26px">Der Relaunch erfolgt kontrolliert, schrittweise und ohne unnötige Risiken.</b><span style="font-size:19px">Bestehende Stärken bleiben erhalten und werden gezielt weiterentwickelt.</span></div>
+  <aside class="notes">Hintergrund: Beim letzten Umbau 2022 hat feser-graf.de rund 50 % Google-Sichtbarkeit verloren. Deshalb ist die Karte „Google“ für die Geschäftsführung wichtig.</aside>
+</section>
+
+<!-- ============ FOLIE 16 · Projektorganisation ============ -->
+<section class="slide" id="s16" data-title="Projektorganisation">
+  <div class="hdr"><span class="logo">FESER <svg><use href="#i-clover"/></svg> GRAF</span><span class="rule"></span></div>
+  <p class="eyebrow">Projektorganisation</p>
+  <h1>Gemeinsam zum erfolgreichen Relaunch</h1>
+  <p class="sub">Die Feser-Graf Gruppe steuert das Projekt strategisch und fachlich. synaigy ergänzt das Team mit Beratung, UX, Technologie und Entwicklung.</p>
+  <div class="hub" data-hub="org"></div>
+  <div class="pcard" data-p="kf" style="left:800px;top:130px" data-build="1"><div class="ic"><svg><use href="#i-flag"/></svg></div><div><b>Kathrin Feser</b><em>Projektleitung | C-Level</em><ul><li>Strategische Steuerung</li><li>Budget &amp; Entscheidungen</li><li>Management-Abstimmung</li></ul></div></div>
+  <div class="pcard" data-p="mm" style="left:340px;top:370px" data-build="2"><div class="ic"><svg><use href="#i-target"/></svg></div><div><b>Michael Mayr</b><em>Projektleitung | Digital</em><ul><li>Projektkoordination</li><li>Technik &amp; Strategie</li><li>Schnittstellen &amp; Website</li></ul></div></div>
+  <div class="pcard" data-p="mh" style="left:1250px;top:370px" data-build="2"><div class="ic"><svg><use href="#i-chart"/></svg></div><div><b>Max Hölzlein</b><em>Performance Marketing</em><ul><li>Tracking</li><li>UX &amp; Conversion</li><li>Google Ads</li></ul></div></div>
+  <div class="pcard" data-p="js" style="left:340px;top:590px" data-build="3"><div class="ic"><svg><use href="#i-search"/></svg></div><div><b>Julius Schmidt-Hauck</b><em>SEO &amp; GEO</em><ul><li>SEO</li><li>GEO</li><li>Websiteoptimierung</li></ul></div></div>
+  <div class="pcard" data-p="ms" style="left:1250px;top:590px" data-build="3"><div class="ic"><svg><use href="#i-gear"/></svg></div><div><b>Manuela Schuster</b><em>Projektkoordination</em><ul><li>Partnersteuerung</li><li>autoCRM</li><li>MobilAPP</li></ul></div></div>
+  <div class="pcard" data-p="sy" style="left:800px;top:690px" data-build="4"><div class="ic"><svg><use href="#i-handshake"/></svg></div><div><b>synaigy</b><em>Strategischer Partner</em><ul><li>Beratung</li><li>UX &amp; Entwicklung</li><li>Technische Umsetzung</li></ul></div></div>
+  <div class="levels">
+    <div class="card" data-build="5"><div class="ic"><svg><use href="#i-chess"/></svg></div><b>Projektleitung</b><ul><li>Strategie</li><li>Priorisierung</li><li>Entscheidungen</li></ul></div>
+    <div class="card" data-build="5"><div class="ic"><svg><use href="#i-users"/></svg></div><b>Fachbereiche</b><ul><li>Marketing · SEO</li><li>Tracking · Website</li></ul></div>
+    <div class="card" data-build="5"><div class="ic"><svg><use href="#i-nodes"/></svg></div><b>Partner</b><ul><li>UX</li><li>Entwicklung</li><li>Technologie</li></ul></div>
+  </div>
+  <div class="banner" data-build="6"><b style="font-size:26px">Der Projekterfolg entsteht durch klare Verantwortlichkeiten und kurze Entscheidungswege.</b><span style="font-size:19px">Strategie, Fachbereiche und Umsetzung arbeiten eng verzahnt zusammen.</span></div>
+</section>
+
+<!-- ============ FOLIE 17 · Business Impact ============ -->
+<section class="slide" id="s17" data-title="Business Impact">
+  <div class="hdr"><span class="logo">FESER <svg><use href="#i-clover"/></svg> GRAF</span><span class="rule"></span></div>
+  <p class="eyebrow">Business Impact</p>
+  <h1>Warum sich diese Investition langfristig auszahlt</h1>
+  <p class="sub">Der Website-Relaunch schafft keine neue Website. Er schafft die digitale Grundlage für zukünftiges Wachstum.</p>
+  <div class="chain">
+    <div class="link g" data-build="1"><div class="ic"><svg><use href="#i-target"/></svg></div><div><b>Investition</b><span>Website-Relaunch</span></div></div><div class="conn" data-build="2"></div>
+    <div class="link" data-build="2"><div class="ic"><svg><use href="#i-nodes"/></svg></div><div><b>Digitale Plattform</b><span>Vertrieb, Service und Marke</span></div></div><div class="conn" data-build="3"></div>
+    <div class="link" data-build="3"><div class="ic"><svg><use href="#i-user"/></svg></div><div><b>Besseres Kundenerlebnis</b><span>Einfacher, schneller, persönlicher</span></div></div><div class="conn" data-build="4"></div>
+    <div class="link" data-build="4"><div class="ic"><svg><use href="#i-funnel"/></svg></div><div><b>Mehr qualifizierte Leads</b><span>Höhere Conversion</span></div></div><div class="conn" data-build="5"></div>
+    <div class="link g" data-build="5"><div class="ic"><svg><use href="#i-chart"/></svg></div><div><b>Nachhaltiges Wachstum</b><span>Langfristiger Unternehmenserfolg</span></div></div>
+  </div>
+  <div class="sidecol l" data-build="6"><h3><svg><use href="#i-users"/></svg>Für unsere Kunden</h3><ul>
+    <li><i><svg><use href="#i-search"/></svg></i>Schnellere Fahrzeugsuche</li><li><i><svg><use href="#i-cursor"/></svg></i>Einfachere Navigation</li><li><i><svg><use href="#i-eye"/></svg></i>Mehr Transparenz</li><li><i><svg><use href="#i-heart"/></svg></i>Besseres digitales Erlebnis</li></ul></div>
+  <div class="sidecol r" data-build="6"><h3><svg><use href="#i-chart"/></svg>Für den Vertrieb</h3><ul>
+    <li><i><svg><use href="#i-users"/></svg></i>Mehr qualifizierte Leads</li><li><i><svg><use href="#i-star"/></svg></i>Höhere Leadqualität</li><li><i><svg><use href="#i-clock"/></svg></i>Schnellere Prozesse</li><li><i><svg><use href="#i-gear"/></svg></i>Weniger manueller Aufwand</li></ul></div>
+  <div class="strip" data-build="7"><h4>Für die Feser-Graf Gruppe</h4><ul>
+    <li><svg><use href="#i-eye"/></svg>Mehr Sichtbarkeit</li><li><svg><use href="#i-db"/></svg>Mehr Datenqualität</li><li><svg><use href="#i-gear"/></svg>Mehr Effizienz</li><li><svg><use href="#i-chart"/></svg>Mehr Skalierbarkeit</li><li><svg><use href="#i-sliders"/></svg>Mehr Flexibilität</li><li><svg><use href="#i-shield"/></svg>Mehr Zukunftssicherheit</li></ul></div>
+  <div class="banner" data-build="8"><b style="font-size:26px">Die Investition endet nicht mit dem Go-live.</b><span style="font-size:19px">Sie schafft eine digitale Plattform, die sich gemeinsam mit der Feser-Graf Gruppe kontinuierlich weiterentwickelt.</span></div>
+</section>
+
+<!-- ============ FOLIE 18 · Abschluss ============ -->
+<section class="slide" id="s18" data-title="Abschluss">
+  <div class="hdr"><span class="logo">FESER <svg><use href="#i-clover"/></svg> GRAF</span><span class="rule"></span></div>
+  <p class="eyebrow" style="margin-top:130px">Abschluss</p>
+  <h1 style="margin-top:0">Vielen Dank.</h1>
+  <p class="sub">Gemeinsam gestalten wir die digitale Zukunft der Feser-Graf Gruppe.</p>
+  <div class="hub" data-hub="final"></div>
+  <div class="foot"><b>Projektleitung</b>Kathrin Feser<br>Michael Mayr</div>
+  <div class="foot2"><b>Strategischer Umsetzungspartner</b>synaigy</div>
+</section>
+
+<!-- ============ FOLIE 19 · Investition ============ -->
+<section class="slide" id="s19" data-title="Investition">
+  <div class="hdr"><span class="logo">FESER <svg><use href="#i-clover"/></svg> GRAF</span><span class="rule"></span></div>
+  <p class="eyebrow">Investition</p>
+  <h1>Projektumfang &amp; Investition</h1>
+  <p class="sub">Die Investition deckt alle wesentlichen Projektbausteine für den strategischen Website-Relaunch ab.</p>
+  <div class="total" data-build="1"><h4>Gesamtinvestition</h4><div class="num"><span class="count" data-to="152880">152.880</span> €</div><b>Festpreis</b><span>inkl. Feser-Graf-Sonderkonditionen</span><small>zzgl. gesetzlicher Umsatzsteuer</small></div>
+  <div class="pos">
+    <div class="card" data-build="2"><div class="ic"><svg><use href="#i-target"/></svg></div><h3>Conversion, Sichtbarkeit &amp; Customer Experience</h3><div class="pt">105 PT</div><div class="eur">88.200 €</div></div>
+    <div class="card" data-build="2"><div class="ic"><svg><use href="#i-shield"/></svg></div><h3>CMS-Stabilisierung &amp; technische Optimierung</h3><div class="pt">27,25 PT</div><div class="eur">22.890 €</div></div>
+    <div class="card" data-build="2"><div class="ic"><svg><use href="#i-car"/></svg></div><h3>Neue Fahrzeug- &amp; Angebotssuche</h3><div class="pt">25,5 PT</div><div class="eur">21.420 €</div></div>
+    <div class="card" data-build="2"><div class="ic"><svg><use href="#i-gear"/></svg></div><h3>Angebotsautomatisierung</h3><div class="pt">17 PT</div><div class="eur">14.280 €</div></div>
+    <div class="card" data-build="2"><div class="ic"><svg><use href="#i-clock"/></svg></div><h3>Echtzeit-Fahrzeugdaten</h3><div class="pt">7,25 PT</div><div class="eur">6.090 €</div></div>
+    <div class="opt" data-build="3"><h4>Optional erweiterbar</h4>
+      <div class="o"><svg><use href="#i-refresh"/></svg><div><b>Laufender Betrieb</b><span>3 PT / Monat · 2.520 € monatlich</span></div></div>
+      <div class="o"><svg><use href="#i-sparkle"/></svg><div><b>KI-gestützte Fahrzeugsuche</b><span>32 PT · 26.880 €</span></div></div>
+    </div>
+  </div>
+  <div class="bar" data-build="2" data-bar><i style="--w:57.7%"></i><i style="--w:15%"></i><i style="--w:14%"></i><i style="--w:9.3%"></i><i style="--w:4%"></i></div>
+  <div class="kpi" data-build="4"><h4>Projektkennzahlen</h4>
+    <div class="k"><svg><use href="#i-users"/></svg><div><b data-cfg="ptTotal">181 PT</b><span>Projektvolumen</span></div></div> <!-- TODO prüfen: 181 PT vs. Summe der Positionen 182 PT → CONFIG.ptTotal -->
+    <div class="k"><svg><use href="#i-puzzle"/></svg><div><b>5 Arbeitspakete</b><span>Projektumfang</span></div></div>
+    <div class="k"><svg><use href="#i-calendar"/></svg><div><b data-cfg="endDate">31.12.2026</b><span>Geplanter Abschluss</span></div></div> <!-- TODO prüfen: Abschluss 31.12.2026 intern fraglich → CONFIG.endDate -->
+    <div class="k"><svg><use href="#i-kirby"/></svg><div><b>Kirby CMS</b><span>Bestehende Plattform bleibt erhalten</span></div></div>
+  </div>
+  <div class="banner" data-build="5"><b>Die Investition schafft eine zukunftssichere digitale Plattform statt eines klassischen Website-Relaunchs.</b><span>Alle Projektbausteine zahlen auf ein gemeinsames Ziel ein: mehr Effizienz, bessere Nutzererlebnisse und nachhaltiges Wachstum.</span></div>
+  <aside class="notes"><b>Christoph erklärt die Kosten.</b> Jede Position in verkaufte Fahrzeuge umrechnen. Echtzeit-Fahrzeugdaten (6.090 €) ≈ Marge von sechs zusätzlich verkauften Fahrzeugen – erreichbar in wenigen Wochen, wenn Kunden keine bereits verkauften Fahrzeuge mehr sehen. Angebotsautomatisierung (14.280 €): 20 Angebote an einem halben Tag statt bis zu einem Tag Vorlauf pro Angebot – dadurch wird früher verkauft. <b>Till Heinrich (Finanzen) wird hier nachfragen.</b></aside>
+</section>
+</div>
+
+<div id="progress"></div>
+<div id="counter">1 / 19</div>
+<div id="help">← → Navigation · F Vollbild · Esc Übersicht · N Notizen · S Chips</div>
+<div id="jump"></div>
+<div id="notes"></div>
+<div id="overview"></div>
+<div id="lightbox"></div>
+
+<script>
+/* =====================================================================
+   CONFIG — hier anpassen
+   ===================================================================== */
+const CONFIG = {
+  // Reihenfolge der Folien (IDs). Investition (s19) vor den Abschluss ziehen: 's19' vor 's18' setzen.
+  order: ['s01','s02','s03','s04','s05','s06','s07','s08','s09','s10','s11','s12','s13','s14','s15','s16','s17','s19','s18'],
+  // synaigy-Chips „ERGÄNZUNG SYNAIGY“ anzeigen (Taste S schaltet um)
+  showSynChips: true,
+  // Sprechernotizen beim Start anzeigen (Taste N)
+  showNotes: false,
+  // TODO prüfen: Datum auf der Titelfolie (Vorlage: „August 2026“, Termin ist 28.09.2026)
+  date: 'August 2026',
+  // TODO prüfen: Projektvolumen (Vorlage 181 PT, Summe der Positionen und Angebot = 182 PT)
+  ptTotal: '181 PT',
+  // TODO prüfen: geplanter Abschluss (31.12.2026 intern fraglich)
+  endDate: '31.12.2026',
+};
+
+/* ---------- Hub-Grafiken (Titel, Zielbild, Organigramm, Abschluss) ---------- */
+const HUBS = {
+  title: { r: 300, core: '<svg style="color:#489C41"><use href="#i-clover"/></svg>', coreClass:'light', small:true, labels:false,
+    items: [
+      {i:'i-monitor',a:-90},{i:'i-search',a:-45},{i:'i-chart',a:0},{i:'i-pin',a:45},{i:'i-calendar',a:90},{i:'i-wrench',a:135},{i:'i-mobile',a:180},{i:'i-car',a:225}
+    ]},
+  ziel: { r: 250, core:'<b>Digitale<br>Plattform</b><span>feser-graf.de</span>', labels:true, together:true,
+    items: [
+      {i:'i-car',a:-150,t:'Fahrzeugverkauf',s:'Mehr qualifizierte Leads',side:'l'},
+      {i:'i-wrench',a:-30,t:'Servicegeschäft',s:'Stärker sichtbar'},
+      {i:'i-shield-star',a:180,t:'Marke',s:'Starke Dachmarke',side:'l'},
+      {i:'i-user',a:0,t:'Kundenerlebnis',s:'Einfach, schnell, persönlich'},
+      {i:'i-db',a:150,t:'Daten &amp; Technologie',s:'Echtzeitdaten und skalierbare Plattform',side:'l'},
+      {i:'i-chart',a:30,t:'Kontinuierliche Optimierung',s:'Messbar besser werden'}
+    ]},
+  org: { r: 0, core:'<b>Website-Relaunch</b><span>feser-graf.de</span>', labels:false, custom:true,
+    // Endpunkte der Linien = Kartenränder (Koordinaten relativ zum Hub 800×520, Mitte 400/260)
+    links:[{p:'kf',x:405,y:65,g:false},{p:'mm',x:110,y:235,g:false},{p:'mh',x:690,y:235,g:false},{p:'js',x:110,y:455,g:true},{p:'ms',x:690,y:455,g:true},{p:'sy',x:405,y:490,g:true}]},
+  final: { r: 300, core:'<svg><use href="#i-clover"/></svg><b>feser-graf.de</b>', coreClass:'', small:false, labels:false, orbit:true,
+    items:[{i:'i-search',a:-90},{i:'i-pin',a:-45},{i:'i-car',a:0},{i:'i-wrench',a:45},{i:'i-server',a:90},{i:'i-user',a:135},{i:'i-chart',a:180},{i:'i-cloud',a:225}]}
+};
+
+function buildHub(el){
+  const cfg = HUBS[el.dataset.hub]; if(!cfg) return;
+  const W = el.clientWidth || parseFloat(getComputedStyle(el).width), H = el.clientHeight || parseFloat(getComputedStyle(el).height);
+  const cx = W/2, cy = H/2, R = cfg.r;
+  let svg = `<svg viewBox="0 0 ${W} ${H}">`;
+  let html = '';
+  if(cfg.custom){
+    cfg.links.forEach((l,i)=>{ svg += `<line data-p="${l.p}" class="${l.g?'g':''}" x1="${cx}" y1="${cy}" x2="${l.x}" y2="${l.y}" data-build="${i<1?1:i<3?2:i<5?3:4}"/><circle class="${l.g?'dot':'dotn'}" cx="${l.x}" cy="${l.y}" r="5"/>`; });
+  } else {
+    if(cfg.orbit){ svg += `<circle class="orbit" cx="${cx}" cy="${cy}" r="${R-70}"/><circle class="orbit" cx="${cx}" cy="${cy}" r="${R+70}"/>`; }
+    cfg.items.forEach((it,i)=>{
+      const a = it.a*Math.PI/180, x = cx+Math.cos(a)*R, y = cy+Math.sin(a)*R;
+      const g = i%2===0 ? 'g' : '';
+      const inner = cfg.orbit ? 160 : 140;
+      const x0 = cx+Math.cos(a)*inner, y0 = cy+Math.sin(a)*inner;
+      const bx = cfg.together ? 1 : i+1;   // together: alle Satelliten in einem Schritt
+      svg += `<line class="${g}" x1="${x0}" y1="${y0}" x2="${x}" y2="${y}" data-build="${bx}"/><circle class="${g?'dot':'dotn'}" cx="${x0}" cy="${y0}" r="5"/>`;
+      const lbl = cfg.labels ? `<div class="txt"><b>${it.t}</b><span>${it.s}</span></div>` : '';
+      html += `<div class="sat ${it.side||''} ${cfg.small?'small':''} ${cfg.labels?'lbl':''}" style="left:${x}px;top:${y}px" data-build="${bx}"><div class="node"><svg><use href="#${it.i}"/></svg></div>${lbl}</div>`;
+    });
+  }
+  svg += '</svg>';
+  const core = `<div class="core ${cfg.coreClass||''}"><div>${cfg.core}</div></div>`;
+  el.innerHTML = cfg.orbit ? `<div class="orbit-wrap">${svg}${html}</div>${core}` : `${svg}${html}${core}`;
+}
+
+/* ---------- Setup ---------- */
+const stage = document.getElementById('stage');
+const allSlides = Object.fromEntries([...document.querySelectorAll('.slide')].map(s=>[s.id,s]));
+const slides = CONFIG.order.map(id=>allSlides[id]).filter(Boolean);
+slides.forEach(s=>stage.appendChild(s));               // Reihenfolge aus CONFIG anwenden
+document.querySelectorAll('[data-cfg]').forEach(e=>{ e.textContent = CONFIG[e.dataset.cfg]; });
+document.body.classList.toggle('nochips', !CONFIG.showSynChips);
+document.body.classList.toggle('notes', CONFIG.showNotes);
+document.querySelectorAll('.hub[data-hub]').forEach(buildHub);
+
+// Bilder: Slot als "has" markieren, wenn die Datei geladen werden konnte;
+// hohe Screens bekommen eine Auto-Scroll-Animation (Dauer proportional zur Überlänge)
+function setupScroll(img){
+  const slot=img.parentElement; if(slot.closest('.plain')) return;
+  const scaledH = img.naturalHeight * (slot.clientWidth / img.naturalWidth);
+  const over = scaledH - slot.clientHeight;
+  if(over > 24){
+    img.classList.add('scrolls');
+    img.style.setProperty('--over', over+'px');
+    img.style.setProperty('--dur', Math.max(6, Math.round(over/120))+'s');
+  }
+}
+document.querySelectorAll('.slot img, .avatar img').forEach(img=>{
+  const mark=()=>{ if(img.naturalWidth>0){ img.parentElement.classList.add('has'); if(img.closest('.slot')) setupScroll(img); } };
+  img.addEventListener('load',mark); if(img.complete) mark();
+});
+
+/* ---------- Skalierung ---------- */
+function fit(){ const s=Math.min(innerWidth/1920, innerHeight/1080); stage.style.transform=`translate(-50%,-50%) scale(${s})`; }
+addEventListener('resize',fit); fit();
+
+/* ---------- Navigation & Builds ---------- */
+let cur = 0, step = 0;
+const stepsOf = s => { const v=[...s.querySelectorAll('[data-build]')].map(e=>+e.dataset.build); return v.length?Math.max(...v):0; };
+
+function applyBuild(s){
+  s.querySelectorAll('[data-build]').forEach(e=>{
+    const b=+e.dataset.build, on = b<=step;
+    const wasOn = e.classList.contains('on');
+    e.classList.toggle('on', on);
+    e.classList.toggle('dim', !!e.dataset.dimAt && step>=+e.dataset.dimAt);
+    if(on && !wasOn){
+      e.querySelectorAll('.count').forEach(countUp); if(e.classList.contains('count')) countUp(e);
+      if(e.hasAttribute('data-bar')) e.querySelectorAll('i').forEach(i=>{ i.style.width = i.style.getPropertyValue('--w'); });
+    }
+    if(!on && e.hasAttribute('data-bar')) e.querySelectorAll('i').forEach(i=>i.style.width='0');
+  });
+}
+function countUp(el){
+  if(el.dataset.done) return; el.dataset.done=1;
+  const to=+el.dataset.to, plain=el.dataset.plain, t0=performance.now(), dur=matchMedia('(prefers-reduced-motion:reduce)').matches?0:1100;
+  const fmt=v=>plain? String(Math.round(v)) : Math.round(v).toLocaleString('de-DE');
+  const tick=n=>{ const p=Math.min(1,(n-t0)/(dur||1)), e=1-Math.pow(1-p,3); el.textContent=fmt(to*e); if(p<1) requestAnimationFrame(tick); else el.textContent=fmt(to); };
+  requestAnimationFrame(tick);
+}
+function show(i, fromStart=true){
+  i=Math.max(0,Math.min(slides.length-1,i));
+  if(autoTimer){ clearInterval(autoTimer); autoTimer=null; }
+  const prev=slides[cur];
+  if(prev && prev!==slides[i]){ prev.classList.remove('active'); prev.classList.add('leaving'); setTimeout(()=>prev.classList.remove('leaving'),500); }
+  cur=i; const s=slides[cur];
+  step = fromStart ? 0 : stepsOf(s);
+  s.querySelectorAll('.count').forEach(c=>{ delete c.dataset.done; });
+  s.classList.add('active'); applyBuild(s); updateChrome();
+}
+let autoTimer=null;
+function next(){
+  const s=slides[cur], max=stepsOf(s);
+  if(autoTimer){ clearInterval(autoTimer); autoTimer=null; step=max; applyBuild(s); return; }   // Klick während Autoplay: sofort fertig
+  if(step===0 && s.dataset.autoplay && max>0){                                                   // Autoplay: alle Schritte nacheinander
+    const iv=+s.dataset.autoplay||300;
+    autoTimer=setInterval(()=>{ step++; applyBuild(s); if(step>=max){ clearInterval(autoTimer); autoTimer=null; } }, iv);
+    step++; applyBuild(s); return;
+  }
+  if(step<max){ step++; applyBuild(s); } else if(cur<slides.length-1) show(cur+1);
+}
+function prev(){ const s=slides[cur]; if(autoTimer){ clearInterval(autoTimer); autoTimer=null; } if(s.dataset.autoplay && step>0){ step=0; applyBuild(s); return; } if(step>0){ step--; applyBuild(s); } else if(cur>0) show(cur-1,false); }
+function updateChrome(){
+  document.getElementById('counter').textContent=`${cur+1} / ${slides.length}`;
+  document.getElementById('progress').style.width=`${((cur+1)/slides.length)*100}%`;
+  const n=slides[cur].querySelector('.notes');
+  document.getElementById('notes').innerHTML = n ? `<b>Folie ${cur+1} · ${slides[cur].dataset.title}</b><br>${n.innerHTML}` : `<span class="empty">Folie ${cur+1} · ${slides[cur].dataset.title} – keine Notizen</span>`;
+  location.hash = 's'+(cur+1);
+}
+
+/* ---------- Übersicht (Esc) ---------- */
+const ov=document.getElementById('overview');
+function openOverview(){
+  ov.innerHTML='';
+  slides.forEach((s,i)=>{
+    const t=document.createElement('div'); t.className='thumb'+(i===cur?' cur':'');
+    const inner=document.createElement('div'); inner.className='inner';
+    const c=s.cloneNode(true); c.classList.add('active'); c.id=''; c.querySelectorAll('[data-build]').forEach(e=>e.classList.add('on'));
+    inner.appendChild(c); t.appendChild(inner);
+    const l=document.createElement('div'); l.className='lbl'; l.textContent=`${i+1} · ${s.dataset.title}`; t.appendChild(l);
+    t.addEventListener('click',()=>{ closeOverview(); show(i); });
+    ov.appendChild(t);
+  });
+  document.body.classList.add('overview');
+  const w=ov.querySelector('.thumb').clientWidth; ov.querySelectorAll('.inner').forEach(e=>e.style.transform=`scale(${w/1920})`);
+}
+function closeOverview(){ document.body.classList.remove('overview'); }
+
+/* ---------- Lightbox für Design-Screens ---------- */
+const lb=document.getElementById('lightbox');
+document.querySelectorAll('[data-lb]').forEach(el=>el.addEventListener('click',ev=>{
+  ev.stopPropagation();
+  const imgs=[...el.querySelectorAll('img')].filter(i=>i.naturalWidth>0);
+  lb.innerHTML = imgs.length
+    ? imgs.map(i=>`<img src="${i.getAttribute('src')}" class="${i.naturalHeight>i.naturalWidth*1.2?'tall':''}" alt="" style="margin-bottom:30px">`).join('') + `<div class="hint">Scrollen zum Durchsehen · Klick oder Esc schließt</div>`
+    : `<div class="ph">Noch kein Bild hinterlegt:<br><code>${el.dataset.lb}</code></div>`;
+  lb.scrollTop=0; lb.classList.add('open');
+}));
+lb.addEventListener('click',()=>lb.classList.remove('open'));
+
+/* ---------- Interaktionen in Folien ---------- */
+document.querySelectorAll('.design .toggle button').forEach(b=>b.addEventListener('click',ev=>{
+  ev.stopPropagation(); const sl=b.closest('.design'); sl.querySelectorAll('.toggle button').forEach(x=>x.classList.remove('on')); b.classList.add('on');
+  sl.classList.toggle('focus-mobile', b.dataset.view==='mobile');
+}));
+document.querySelectorAll('#s16 .pcard').forEach(p=>{
+  const hi=on=>{ p.classList.toggle('hi',on); document.querySelectorAll(`#s16 line[data-p="${p.dataset.p}"]`).forEach(l=>l.classList.toggle('hi',on)); };
+  p.addEventListener('mouseenter',()=>hi(true)); p.addEventListener('mouseleave',()=>hi(false));
+  p.addEventListener('click',ev=>{ ev.stopPropagation(); hi(!p.classList.contains('hi')); });
+});
+
+/* ---------- Maus-Parallax auf den Design-Folien ---------- */
+stage.addEventListener('mousemove',e=>{
+  const s=slides[cur]; if(!s.classList.contains('design')) return;
+  const nx=(e.clientX/innerWidth-.5)*2, ny=(e.clientY/innerHeight-.5)*2;
+  const d=s.querySelector('.desktop'), m=s.querySelector('.mobile');
+  if(d){ d.style.setProperty('--tx',(-nx*14)+'px'); d.style.setProperty('--ty',(-ny*8)+'px'); }
+  if(m){ m.style.setProperty('--tx',(nx*28)+'px'); m.style.setProperty('--ty',(ny*18)+'px'); }
+});
+stage.addEventListener('mouseleave',()=>{ document.querySelectorAll('.design .desktop,.design .mobile').forEach(el=>{ el.style.setProperty('--tx','0px'); el.style.setProperty('--ty','0px'); }); });
+
+/* ---------- Tastatur & Maus ---------- */
+let jumpBuf='', jumpTimer;
+const jumpEl=document.getElementById('jump');
+addEventListener('keydown',e=>{
+  if(lb.classList.contains('open')){ if(e.key==='Escape'||e.key===' '){ lb.classList.remove('open'); e.preventDefault(); } return; }
+  if(document.body.classList.contains('overview')){ if(e.key==='Escape'){ closeOverview(); } return; }
+  if(/^[0-9]$/.test(e.key)){ jumpBuf+=e.key; jumpEl.textContent='→ Folie '+jumpBuf; jumpEl.style.display='block'; clearTimeout(jumpTimer); jumpTimer=setTimeout(()=>{jumpBuf='';jumpEl.style.display='none';},2500); return; }
+  if(e.key==='Enter' && jumpBuf){ show(+jumpBuf-1); jumpBuf=''; jumpEl.style.display='none'; return; }
+  switch(e.key){
+    case 'ArrowRight': case ' ': case 'PageDown': next(); e.preventDefault(); break;
+    case 'ArrowLeft': case 'PageUp': case 'Backspace': prev(); e.preventDefault(); break;
+    case 'Home': show(0); break;
+    case 'End': show(slides.length-1,false); break;
+    case 'f': case 'F': document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen().catch(()=>{}); break;
+    case 'Escape': openOverview(); break;
+    case 'n': case 'N': document.body.classList.toggle('notes'); break;
+    case 's': case 'S': document.body.classList.toggle('nochips'); break;
+  }
+});
+stage.addEventListener('click',e=>{ if(e.target.closest('button,a')) return; (e.clientX < innerWidth*0.12) ? prev() : next(); });
+
+/* ---------- Start ---------- */
+const h=parseInt((location.hash||'').replace('#s',''),10);
+show(isNaN(h)?0:h-1);
+</script>
+</body>
+</html>
