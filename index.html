@@ -252,7 +252,8 @@ body.overview [data-build],body.reveal-all [data-build],body.overview .hub svg l
 .design .desktop .bar .url{margin-left:12px;flex:1;height:18px;border-radius:9px;background:#fff;border:1px solid var(--line);font-size:12px;color:var(--muted);display:flex;align-items:center;padding:0 10px}
 .design .desktop .slot{aspect-ratio:16/8.4;position:relative;background:#F4F6F9}
 .design .mobile{width:240px;border-radius:34px;background:#0F1A2B;padding:12px;box-shadow:0 22px 50px rgba(12,62,117,.2);cursor:zoom-in}
-.design .mobile .slot{aspect-ratio:9/19.5;border-radius:24px;overflow:hidden;position:relative;background:#F4F6F9}
+.design .mobile .slot{aspect-ratio:9/19.5;border-radius:24px;overflow:hidden;position:relative;background:#fff}
+.design .mobile .slot img{height:auto;bottom:auto;object-fit:unset}
 .design .slot img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top;display:none}
 /* Auto-Scroll: hohe Screens fahren langsam durch, als würde man die Seite scrollen */
 .design .slot img.scrolls{height:auto;bottom:auto;object-fit:unset;animation:autoscroll var(--dur,14s) ease-in-out infinite alternate;animation-play-state:paused;will-change:transform}
@@ -655,7 +656,7 @@ body.overview #overview{display:grid;grid-template-columns:repeat(4,1fr);gap:26p
   <div class="stagebox">
     <div class="mocks">
       <div class="desktop" data-lb="design-01-startseite-desktop.png"><div class="bar"><i></i><i></i><i></i><span class="url">feser-graf.de</span></div><div class="slot"><img src="design-01-startseite-desktop.png" alt="Startseite Desktop"><div class="ph"><div><svg><use href="#i-image"/></svg><b>Desktop-Screen Startseite</b><code>design-01-startseite-desktop.png</code></div></div></div></div>
-      <div class="mobile" data-lb="design-01-startseite-mobile.png"><div class="slot"><img src="design-01-startseite-mobile.png" alt="Startseite Mobile"><div class="ph"><div><svg><use href="#i-mobile"/></svg><b>Mobile</b><code>design-01-startseite-mobile.png</code></div></div></div></div>
+      <div class="mobile" data-lb="design-01-startseite-mobile.png"><div class="slot" style="aspect-ratio:572/1129"><img src="design-01-startseite-mobile.png" alt="Startseite Mobile"><div class="ph"><div><svg><use href="#i-mobile"/></svg><b>Mobile</b><code>design-01-startseite-mobile.png</code></div></div></div></div>
     </div>
     <div class="side">
       <h3>Was der Entwurf zeigt</h3>
