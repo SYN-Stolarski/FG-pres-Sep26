@@ -430,6 +430,21 @@ body.overview [data-build],body.reveal-all [data-build],body.overview .hub svg l
 #s21 .cand li::before{content:"";position:absolute;left:0;top:.55em;width:8px;height:8px;border-radius:50%;background:var(--green)}
 #s21 .line{position:absolute;left:96px;right:96px;bottom:52px;border-top:1.5px solid var(--line);padding-top:18px;font-size:24px;font-weight:800;color:var(--navy)}
 
+
+/* ---------- Passwortseite ---------- */
+#gate{position:fixed;inset:0;z-index:200;background:#0b1626;display:grid;place-items:center;font-family:var(--font)}
+#gate .box{width:min(92vw,460px);background:#fff;border-radius:20px;padding:40px 40px 34px;box-shadow:0 40px 100px rgba(0,0,0,.5);text-align:center}
+#gate img{height:34px;width:auto;margin:0 auto 26px;display:block}
+#gate h2{margin:0 0 6px;font-size:22px;color:var(--navy)}
+#gate p{margin:0 0 22px;font-size:14px;color:var(--muted)}
+#gate form{display:flex;gap:10px}
+#gate input{flex:1;font:inherit;font-size:16px;padding:12px 14px;border:1.5px solid var(--line);border-radius:10px;color:var(--text);outline:none}
+#gate input:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(72,156,65,.18)}
+#gate button{font:inherit;font-weight:700;font-size:15px;padding:12px 18px;border:0;border-radius:10px;background:var(--green);color:#fff;cursor:pointer}
+#gate button:hover{background:var(--green-deep)}
+#gate .err{min-height:20px;margin-top:12px;font-size:13.5px;color:#C2410C;font-weight:600}
+body.locked #stage,body.locked #counter,body.locked #help,body.locked #progress{visibility:hidden}
+
 /* ---------- Chrome: Fortschritt, Notizen, Übersicht, Lightbox ---------- */
 #progress{position:fixed;left:0;bottom:0;height:4px;background:var(--green);width:0;z-index:50;transition:width .3s}
 #counter{position:fixed;right:18px;bottom:12px;color:#8FA1B8;font-size:13px;font-weight:600;z-index:50;font-variant-numeric:tabular-nums;font-family:var(--font)}
@@ -516,6 +531,15 @@ body.overview #overview{display:grid;grid-template-columns:repeat(4,1fr);gap:26p
 </defs>
 </svg>
 
+<div id="gate">
+  <div class="box">
+    <img src="logo-feser-graf.png" alt="Feser Graf">
+    <h2>Website-Relaunch der Feser-Graf Gruppe</h2>
+    <p>Präsentation für die Geschäftsführung · bitte Passwort eingeben</p>
+    <form id="gateform" autocomplete="off"><input id="gatepw" type="password" placeholder="Passwort" aria-label="Passwort" autofocus><button type="submit">Öffnen</button></form>
+    <div class="err" id="gateerr"></div>
+  </div>
+</div>
 <div id="stage">
 <!-- ============ FOLIE 1 · Titel ============ -->
 <section class="slide" id="s01" data-title="Titel" data-autoplay="260">
@@ -1178,10 +1202,27 @@ stage.addEventListener('mousemove',e=>{
 });
 stage.addEventListener('mouseleave',()=>{ document.querySelectorAll('.design .desktop,.design .mobile').forEach(el=>{ el.style.setProperty('--tx','0px'); el.style.setProperty('--ty','0px'); }); });
 
+
+/* ---------- Passwortseite (SHA-256-Vergleich, Freigabe für die Browser-Sitzung) ---------- */
+const GATE_HASH='54a210a36684cb197bf5f77d0ddde2defa30f73801b0d0b513ee53716d110e7e';
+async function sha256(t){ const b=await crypto.subtle.digest('SHA-256', new TextEncoder().encode(t)); return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join(''); }
+function unlock(){ document.body.classList.remove('locked'); const g=document.getElementById('gate'); if(g) g.remove(); }
+(function(){
+  let ok=false; try{ ok = sessionStorage.getItem('fg-pres-auth')==='1'; }catch(e){}
+  if(ok || !crypto.subtle){ unlock(); return; }
+  document.body.classList.add('locked');
+  const f=document.getElementById('gateform'), pw=document.getElementById('gatepw'), err=document.getElementById('gateerr');
+  f.addEventListener('submit', async ev=>{ ev.preventDefault(); const h=await sha256(pw.value.trim());
+    if(h===GATE_HASH){ try{ sessionStorage.setItem('fg-pres-auth','1'); }catch(e){} unlock(); }
+    else { err.textContent='Passwort stimmt nicht.'; pw.select(); } });
+  setTimeout(()=>pw.focus(),50);
+})();
+
 /* ---------- Tastatur & Maus ---------- */
 let jumpBuf='', jumpTimer;
 const jumpEl=document.getElementById('jump');
 addEventListener('keydown',e=>{
+  if(document.body.classList.contains('locked')) return;
   if(lb.classList.contains('open')){ if(e.key==='Escape'||e.key===' '){ lb.classList.remove('open'); e.preventDefault(); } return; }
   if(document.body.classList.contains('overview')){ if(e.key==='Escape'){ closeOverview(); } return; }
   if(/^[0-9]$/.test(e.key)){ jumpBuf+=e.key; jumpEl.textContent='→ Folie '+jumpBuf; jumpEl.style.display='block'; clearTimeout(jumpTimer); jumpTimer=setTimeout(()=>{jumpBuf='';jumpEl.style.display='none';},2500); return; }
@@ -1197,7 +1238,7 @@ addEventListener('keydown',e=>{
     case 's': case 'S': document.body.classList.toggle('nochips'); break;
   }
 });
-stage.addEventListener('click',e=>{ if(e.target.closest('button,a')) return; (e.clientX < innerWidth*0.12) ? prev() : next(); });
+stage.addEventListener('click',e=>{ if(document.body.classList.contains('locked')||e.target.closest('button,a')) return; (e.clientX < innerWidth*0.12) ? prev() : next(); });
 
 /* ---------- Start ---------- */
 const h=parseInt((location.hash||'').replace('#s',''),10);
