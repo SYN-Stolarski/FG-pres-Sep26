@@ -54,6 +54,7 @@ button{font:inherit}
 .hdr{position:absolute;left:96px;top:52px;display:flex;align-items:center;gap:10px;z-index:3}
 .logo{display:inline-flex;align-items:center;gap:8px;font-weight:800;font-size:30px;letter-spacing:.06em;color:var(--navy);line-height:1}
 .logo svg{width:34px;height:34px}
+img.logo{height:36px;width:auto;display:block}
 .logo .rule{display:block}
 .hdr .rule{position:absolute;left:0;top:46px;width:90px;height:3px;background:var(--green);border-radius:2px}
 .chip{position:absolute;right:96px;top:56px;z-index:3;font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#fff;background:var(--green);padding:8px 14px;border-radius:999px;box-shadow:0 4px 14px rgba(72,156,65,.3)}
@@ -300,17 +301,17 @@ body.overview [data-build],body.reveal-all [data-build],body.overview .hub svg l
 .design .note{font-size:13.5px;color:var(--muted);margin-top:14px}
 
 /* ---------- Folie 16 Organigramm ---------- */
-#s16 h1{font-size:54px;max-width:640px}
-#s16 .hub{left:560px;top:200px;width:810px;height:600px}
+#s16 h1{font-size:48px;max-width:600px}
+#s16 .hub{left:560px;top:220px;width:810px;height:600px}
 #s16 .hub .core{width:210px;height:210px}
 #s16 .hub .core b{font-size:24px}
 #s16 .hub .core span{font-size:16px}
-#s16 .pcard{position:absolute;width:330px;border:1.5px solid var(--line);border-radius:14px;background:#fff;padding:14px 16px 12px;display:grid;grid-template-columns:54px 1fr;gap:12px;transition:border-color .25s,box-shadow .25s,transform .25s;cursor:default}
+#s16 .pcard{position:absolute;width:330px;border:1.5px solid var(--line);border-radius:14px;background:#fff;padding:12px 14px 10px;display:grid;grid-template-columns:54px 1fr;gap:12px;transition:border-color .25s,box-shadow .25s,transform .25s;cursor:default}
 #s16 .pcard .ic{width:54px;height:54px;border-radius:50%;border:1.5px solid var(--line);display:grid;place-items:center;color:var(--green)}
 #s16 .pcard .ic svg{width:28px;height:28px}
-#s16 .pcard b{display:block;font-size:19px;color:var(--navy)}
+#s16 .pcard b{display:block;font-size:18px;color:var(--navy)}
 #s16 .pcard em{display:block;font-style:normal;font-size:14px;font-weight:700;color:var(--green-deep);margin:2px 0 6px}
-#s16 .pcard ul{margin:0;padding:0;list-style:none;font-size:14px;line-height:1.45}
+#s16 .pcard ul{margin:0;padding:0;list-style:none;font-size:13.5px;line-height:1.4}
 #s16 .pcard li{position:relative;padding-left:14px}
 #s16 .pcard li::before{content:"";position:absolute;left:0;top:.6em;width:6px;height:6px;border-radius:50%;background:var(--green)}
 #s16 .pcard.hi,#s16 .pcard:hover{border-color:var(--green);box-shadow:0 12px 30px rgba(72,156,65,.18);transform:translateY(-2px)}
@@ -322,7 +323,7 @@ body.overview [data-build],body.reveal-all [data-build],body.overview .hub svg l
 #s16 .levels .card b{font-size:22px;color:var(--navy)}
 #s16 .levels .card ul{font-size:16px;line-height:1.35}
 #s16 .banner{bottom:30px;padding:14px 40px}
-#s16 .sub{max-width:440px;font-size:19px}
+#s16 .sub{max-width:420px;font-size:18px;margin-top:12px}
 
 /* ---------- Folie 17 Impact ---------- */
 #s17 .chain{position:absolute;left:660px;top:305px;width:600px;display:flex;flex-direction:column;align-items:center;gap:0}
@@ -398,6 +399,36 @@ body.overview [data-build],body.reveal-all [data-build],body.overview .hub svg l
 #s19 .banner{bottom:40px;padding:16px 40px}
 #s19 .banner b{font-size:26px}
 #s19 .banner span{font-size:19px}
+
+
+/* ---------- Folie Auswahlverfahren (Trichter) ---------- */
+#s20 h1{font-size:56px}
+#s20 .funnel{position:absolute;left:96px;top:300px;width:1300px;display:flex;flex-direction:column;align-items:center;gap:0}
+#s20 .row{display:flex;align-items:center;gap:40px;border:2px solid var(--line);border-radius:16px;background:#fff;padding:0 34px;height:78px;font-size:24px;color:var(--text)}
+#s20 .row b{font-size:30px;color:var(--navy);min-width:90px;font-variant-numeric:tabular-nums}
+#s20 .row.hi{border-color:var(--green);background:var(--green-soft);color:var(--ink);font-weight:600}
+#s20 .row.win{background:var(--green);border-color:var(--green);color:#fff;font-weight:800;letter-spacing:.06em;box-shadow:0 14px 34px rgba(72,156,65,.3)}
+#s20 .row.win b{color:#fff}
+#s20 .arr{width:2px;height:22px;background:var(--green);position:relative;margin:2px 0}
+#s20 .arr::after{content:"";position:absolute;left:-5px;bottom:-1px;border:6px solid transparent;border-top:8px solid var(--green)}
+#s20 .claim{position:absolute;right:96px;top:400px;width:320px;border:1.5px solid var(--line);border-radius:16px;background:#fff;padding:22px 24px;box-shadow:0 12px 30px rgba(12,62,117,.08)}
+#s20 .claim b{display:block;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--green-deep);margin-bottom:10px}
+#s20 .claim p{margin:0;font-size:20px;line-height:1.35;color:var(--navy);font-weight:700}
+#s20 .trail{position:absolute;left:96px;bottom:60px;font-size:20px;font-weight:700;color:var(--green-deep);letter-spacing:.04em}
+/* ---------- Folie Engere Auswahl ---------- */
+#s21 h1{font-size:50px}
+#s21 .sub{font-size:21px}
+#s21 .cands{display:grid;grid-template-columns:repeat(6,1fr);gap:26px;margin-top:34px}
+#s21 .cand{grid-column:span 2;border:1.5px solid var(--line);border-radius:18px;background:#fff;padding:24px 26px 22px}
+#s21 .cand.r2:nth-child(4){grid-column:2/4}
+#s21 .cand.r2:nth-child(5){grid-column:4/6}
+#s21 .cand.hi{border:2px solid var(--green);background:var(--green-soft)}
+#s21 .cand em{display:block;font-style:normal;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--green-deep);font-weight:700}
+#s21 .cand h3{margin:6px 0 12px;font-size:26px;letter-spacing:.04em;text-transform:uppercase;color:var(--navy)}
+#s21 .cand ul{margin:0;padding:0;list-style:none;font-size:16.5px;line-height:1.45;display:grid;gap:8px}
+#s21 .cand li{position:relative;padding-left:18px}
+#s21 .cand li::before{content:"";position:absolute;left:0;top:.55em;width:8px;height:8px;border-radius:50%;background:var(--green)}
+#s21 .line{position:absolute;left:96px;right:96px;bottom:52px;border-top:1.5px solid var(--line);padding-top:18px;font-size:24px;font-weight:800;color:var(--navy)}
 
 /* ---------- Chrome: Fortschritt, Notizen, Übersicht, Lightbox ---------- */
 #progress{position:fixed;left:0;bottom:0;height:4px;background:var(--green);width:0;z-index:50;transition:width .3s}
@@ -489,7 +520,7 @@ body.overview #overview{display:grid;grid-template-columns:repeat(4,1fr);gap:26p
 <!-- ============ FOLIE 1 · Titel ============ -->
 <section class="slide" id="s01" data-title="Titel" data-autoplay="260">
   <div class="trapez"></div>
-  <div class="hdr"><span class="logo">FESER <svg><use href="#i-clover"/></svg> GRAF</span><span class="rule"></span></div>
+  <div class="hdr"><img class="logo" src="logo-feser-graf.png" alt="Feser Graf"><span class="rule"></span></div>
   <h1>Website-Relaunch<br>der Feser-Graf Gruppe</h1>
   <p class="lead">Von einer erfolgreichen Website zur digitalen Vertriebs- und Serviceplattform</p>
   <p class="sub">Warum wir uns für synaigy entschieden haben und wie wir <b>feser-graf.de</b> gemeinsam weiterentwickeln</p>
@@ -503,7 +534,7 @@ body.overview #overview{display:grid;grid-template-columns:repeat(4,1fr);gap:26p
 
 <!-- ============ FOLIE 2 · Ausgangslage ============ -->
 <section class="slide" id="s02" data-title="Ausgangslage">
-  <div class="hdr"><span class="logo">FESER <svg><use href="#i-clover"/></svg> GRAF</span><span class="rule"></span></div>
+  <div class="hdr"><img class="logo" src="logo-feser-graf.png" alt="Feser Graf"><span class="rule"></span></div>
   <p class="eyebrow">Ausgangslage</p>
   <h1>Warum wir handeln müssen</h1>
   <p class="sub">Unsere Website besitzt ein starkes Fundament. Damit sie auch in Zukunft Marktführer bleibt, müssen zentrale digitale Herausforderungen gelöst werden.</p>
@@ -524,9 +555,44 @@ body.overview #overview{display:grid;grid-template-columns:repeat(4,1fr);gap:26p
   <div class="banner" data-build="2"><b>Die bestehende Website ist erfolgreich und besitzt ein gutes Fundament.</b><span>Sie kann die zukünftigen Anforderungen der Feser-Graf Gruppe jedoch nicht mehr vollständig abbilden.</span></div>
 </section>
 
-<!-- ============ FOLIE 3 · Agenturauswahl ============ -->
+
+<!-- ============ FOLIE · FG · Auswahlverfahren (neu, an Stelle 3) ============ -->
+<section class="slide" id="s20" data-title="Auswahlverfahren">
+  <div class="hdr"><img class="logo" src="logo-feser-graf.png" alt="Feser Graf"><span class="rule"></span></div>
+  <p class="eyebrow">Auswahlverfahren</p>
+  <h1>Von über 300 auf eine Agentur</h1>
+  <p class="sub">Jede Stufe hat das Feld bewusst verkleinert – fachlich, technisch, strategisch und in der Zusammenarbeit.</p>
+  <div class="funnel">
+    <div class="row" style="width:1200px" data-build="1"><b>300+</b>Bewerbungen</div>
+    <div class="arr" data-build="2"></div><div class="row" style="width:1040px" data-build="2"><b>32</b>Vorauswahl</div>
+    <div class="arr" data-build="3"></div><div class="row" style="width:880px" data-build="3"><b>10</b>Pitch-Agenturen</div>
+    <div class="arr" data-build="4"></div><div class="row hi" style="width:720px" data-build="4"><b>3</b>Finalisten</div>
+    <div class="arr" data-build="5"></div><div class="row hi" style="width:560px" data-build="5"><b>2</b>Dotbite &nbsp;·&nbsp; synaigy</div>
+    <div class="arr" data-build="6"></div><div class="row win" style="width:400px" data-build="6"><b>1</b>SYNAIGY</div>
+  </div>
+  <div class="claim" data-build="7"><b>Unser Anspruch</b><p>Nicht einfach eine neue Agentur – sondern ein strategischer Partner für die nächste Generation der feser-graf.de.</p></div>
+  <div class="trail" data-build="6">300+ → 32 → 10 → 3 → 2 → 1</div>
+</section>
+
+<!-- ============ FOLIE · FG · Engere Auswahl (neu, an Stelle 4) ============ -->
+<section class="slide" id="s21" data-title="Engere Auswahl">
+  <div class="hdr"><img class="logo" src="logo-feser-graf.png" alt="Feser Graf"><span class="rule"></span></div>
+  <p class="eyebrow">Engere Auswahl</p>
+  <h1>Starke Kandidaten – unterschiedliche Gründe gegen die finale Auswahl</h1>
+  <p class="sub">Alle Agenturen brachten relevante Stärken mit. Entscheidend war die Gesamtpassung zu unserem Anspruch an Plattform, Automotive und Partnerschaft.</p>
+  <div class="cands">
+    <div class="cand hi" data-build="1"><em>Finalist · Platz 2</em><h3>Dotbite</h3><ul><li>Technik, UX und Design im gesamten Pitch sehr überzeugend.</li><li>Automotive-Erfahrung vorhanden, aber ohne ausreichende Tiefe im deutschen Automobilhandel.</li><li>Zusammenhänge wie Boni, Leasing und Zusatzleistungen waren nicht ausreichend bekannt.</li></ul></div>
+    <div class="cand" data-build="1"><em>Spezialist Fahrzeugsuche</em><h3>Carmato</h3><ul><li>Fahrzeugsuche vollends überzeugt – aus unserer Sicht eine der stärksten Lösungen im deutschen Markt.</li><li>Größter Mehrwert klar im Fahrzeugmarkt und in der Suche.</li><li>Für den Relaunch der gesamten feser-graf.de überzeugten andere Konzepte stärker.</li></ul></div>
+    <div class="cand" data-build="1"><em>Starke OEM-Vita</em><h3>Dayone</h3><ul><li>Eine der stärksten Automotive-Vitas mit bekannten OEM-Referenzen.</li><li>Vorgeschlagener Plattformansatz passte nicht vollständig zu unserer Vorstellung des Relaunchs.</li><li>Neuausrichtung der CMS-/Systemlandschaft und Gesamtaufwand sprachen gegen die Auswahl.</li></ul></div>
+    <div class="cand r2" data-build="1"><em>Technologisch top</em><h3>Region10</h3><ul><li>Technisch auf Top-Niveau – aus unserer Sicht auf Augenhöhe mit synaigy.</li><li>Automotive-Erfahrung nicht in der für uns gewünschten Tiefe und Größenordnung.</li><li>Projektvolumen von knapp 900.000 € war im Vergleich zu starken Alternativen nicht darstellbar.</li></ul></div>
+    <div class="cand r2" data-build="1"><em>Automotive-Referenzen</em><h3>Unic / Becklyn</h3><ul><li>Trotz großer Handelsgruppen als Referenzen waren Konzept und Ideen für uns nicht intuitiv genug.</li><li>Zu wenig Differenzierung: Wir wollten keine Entwicklung, die mit Wettbewerbern geteilt bzw. übertragen wird.</li><li>Der Pitch vermittelte uns nicht die gewünschte strategische Partnerschaft und überzeugte insgesamt am wenigsten.</li></ul></div>
+  </div>
+  <div class="line" data-build="2">Die Entscheidung fiel nicht gegen einzelne Agenturen – sondern für die beste Gesamtpassung.</div>
+</section>
+
+<!-- ============ FOLIE 3 · Agenturauswahl (ersetzt durch s20/s21, nicht mehr in CONFIG.order) ============ -->
 <section class="slide" id="s03" data-title="Agenturauswahl">
-  <div class="hdr"><span class="logo">FESER <svg><use href="#i-clover"/></svg> GRAF</span><span class="rule"></span></div>
+  <div class="hdr"><img class="logo" src="logo-feser-graf.png" alt="Feser Graf"><span class="rule"></span></div>
   <p class="eyebrow">Agenturauswahl</p>
   <h1>Warum synaigy die richtige Wahl ist</h1>
   <p class="sub">Die Agentur überzeugte nicht durch ein neues Design, sondern durch ein tiefes Verständnis unseres Geschäftsmodells und unserer digitalen Vertriebsstrategie.</p>
@@ -548,7 +614,7 @@ body.overview #overview{display:grid;grid-template-columns:repeat(4,1fr);gap:26p
 
 <!-- ============ FOLIE 4 · Unser Partner ============ -->
 <section class="slide" id="s04" data-title="Unser Partner">
-  <div class="hdr"><span class="logo">FESER <svg><use href="#i-clover"/></svg> GRAF</span><span class="rule"></span></div>
+  <div class="hdr"><img class="logo" src="logo-feser-graf.png" alt="Feser Graf"><span class="rule"></span></div>
   <p class="eyebrow">Unser Partner</p>
   <h1>Warum wir uns für synaigy entschieden haben</h1>
   <p class="sub">synaigy verbindet strategische Beratung, User Experience und Technologie zu einer langfristigen Partnerschaft.</p>
@@ -578,7 +644,7 @@ body.overview #overview{display:grid;grid-template-columns:repeat(4,1fr);gap:26p
 
 <!-- ============ FOLIE 5 · SYN Team ============ -->
 <section class="slide syn" id="s05" data-title="synaigy Team">
-  <div class="hdr"><span class="logo">FESER <svg><use href="#i-clover"/></svg> GRAF</span><span class="rule"></span></div>
+  <div class="hdr"><img class="logo" src="logo-feser-graf.png" alt="Feser Graf"><span class="rule"></span></div>
   <span class="chip">Ergänzung synaigy</span>
   <p class="eyebrow">synaigy Team</p>
   <h1>Wer bei synaigy für Feser-Graf steht</h1>
@@ -595,7 +661,7 @@ body.overview #overview{display:grid;grid-template-columns:repeat(4,1fr);gap:26p
 
 <!-- ============ FOLIE 6 · Zielbild ============ -->
 <section class="slide" id="s06" data-title="Zielbild">
-  <div class="hdr"><span class="logo">FESER <svg><use href="#i-clover"/></svg> GRAF</span><span class="rule"></span></div>
+  <div class="hdr"><img class="logo" src="logo-feser-graf.png" alt="Feser Graf"><span class="rule"></span></div>
   <p class="eyebrow">Zielbild</p>
   <h1>Unser gemeinsames Zielbild</h1>
   <p class="sub">Wir entwickeln keine neue Website. Wir schaffen die zentrale digitale Plattform der Feser-Graf Gruppe.</p>
@@ -610,7 +676,7 @@ body.overview #overview{display:grid;grid-template-columns:repeat(4,1fr);gap:26p
 
 <!-- ============ FOLIE 7 · Projektbausteine ============ -->
 <section class="slide" id="s07" data-title="Projektbausteine">
-  <div class="hdr"><span class="logo">FESER <svg><use href="#i-clover"/></svg> GRAF</span><span class="rule"></span></div>
+  <div class="hdr"><img class="logo" src="logo-feser-graf.png" alt="Feser Graf"><span class="rule"></span></div>
   <p class="eyebrow">Projektbausteine</p>
   <h1>Die sechs zentralen Projektbausteine</h1>
   <p class="sub">Der Website-Relaunch umfasst weit mehr als ein neues Design. Er verbessert Nutzererlebnis, Datenqualität, Prozesse und technische Zukunftssicherheit.</p>
@@ -627,7 +693,7 @@ body.overview #overview{display:grid;grid-template-columns:repeat(4,1fr);gap:26p
 
 <!-- ============ FOLIE 8 · Fahrzeugsuche ============ -->
 <section class="slide proc-slide" id="s08" data-title="Fahrzeugsuche">
-  <div class="hdr"><span class="logo">FESER <svg><use href="#i-clover"/></svg> GRAF</span><span class="rule"></span></div>
+  <div class="hdr"><img class="logo" src="logo-feser-graf.png" alt="Feser Graf"><span class="rule"></span></div>
   <p class="eyebrow">Fahrzeugsuche</p>
   <h1>Die neue Fahrzeugsuche als Herzstück der Plattform</h1>
   <p class="sub">Die Fahrzeugsuche wird zum zentralen Einstiegspunkt für den digitalen Fahrzeugverkauf. Sie verbindet Kunden, Fahrzeuge, Finanzierung und Service auf einer Plattform.</p>
@@ -650,7 +716,7 @@ body.overview #overview{display:grid;grid-template-columns:repeat(4,1fr);gap:26p
 
 <!-- ============ FOLIEN 9–13 · SYN Designvorschläge ============ -->
 <section class="slide syn design" id="s09" data-title="Design 1/3 Startseite">
-  <div class="hdr"><span class="logo">FESER <svg><use href="#i-clover"/></svg> GRAF</span><span class="rule"></span></div>
+  <div class="hdr"><img class="logo" src="logo-feser-graf.png" alt="Feser Graf"><span class="rule"></span></div>
   <span class="chip">Ergänzung synaigy</span>
   <p class="eyebrow">Designvorschlag 1/3 · Startseite</p>
   <h1>Gefunden wie von selbst</h1>
@@ -674,7 +740,7 @@ body.overview #overview{display:grid;grid-template-columns:repeat(4,1fr);gap:26p
 </section>
 
 <section class="slide syn design" id="s10" data-title="Design 2/3 Fahrzeugsuche">
-  <div class="hdr"><span class="logo">FESER <svg><use href="#i-clover"/></svg> GRAF</span><span class="rule"></span></div>
+  <div class="hdr"><img class="logo" src="logo-feser-graf.png" alt="Feser Graf"><span class="rule"></span></div>
   <span class="chip">Ergänzung synaigy</span>
   <p class="eyebrow">Designvorschlag 2/3 · Fahrzeugsuche</p>
   <h1>Suchen, wie man spricht</h1>
@@ -698,7 +764,7 @@ body.overview #overview{display:grid;grid-template-columns:repeat(4,1fr);gap:26p
 </section>
 
 <section class="slide syn design" id="s11" data-title="Design 3/3 Detailseite">
-  <div class="hdr"><span class="logo">FESER <svg><use href="#i-clover"/></svg> GRAF</span><span class="rule"></span></div>
+  <div class="hdr"><img class="logo" src="logo-feser-graf.png" alt="Feser Graf"><span class="rule"></span></div>
   <span class="chip">Ergänzung synaigy</span>
   <p class="eyebrow">Designvorschlag 3/3 · Fahrzeug-Detailseite</p>
   <h1>Alles für die Entscheidung auf einer Seite</h1>
@@ -722,7 +788,7 @@ body.overview #overview{display:grid;grid-template-columns:repeat(4,1fr);gap:26p
 </section>
 
 <section class="slide syn design" id="s12" data-title="Design 4/5 Angebotsseiten">
-  <div class="hdr"><span class="logo">FESER <svg><use href="#i-clover"/></svg> GRAF</span><span class="rule"></span></div>
+  <div class="hdr"><img class="logo" src="logo-feser-graf.png" alt="Feser Graf"><span class="rule"></span></div>
   <span class="chip">Ergänzung synaigy</span>
   <p class="eyebrow">Designvorschlag 4/5 · Angebotsseiten</p>
   <h1>Ein Template für Marke, Modell und Angebot</h1>
@@ -746,7 +812,7 @@ body.overview #overview{display:grid;grid-template-columns:repeat(4,1fr);gap:26p
 </section>
 
 <section class="slide syn design" id="s13" data-title="Design 5/5 Navigation">
-  <div class="hdr"><span class="logo">FESER <svg><use href="#i-clover"/></svg> GRAF</span><span class="rule"></span></div>
+  <div class="hdr"><img class="logo" src="logo-feser-graf.png" alt="Feser Graf"><span class="rule"></span></div>
   <span class="chip">Ergänzung synaigy</span>
   <p class="eyebrow">Designvorschlag 5/5 · Navigation &amp; Header</p>
   <h1>Klare Orientierung für Privat- und Geschäftskunden</h1>
@@ -771,7 +837,7 @@ body.overview #overview{display:grid;grid-template-columns:repeat(4,1fr);gap:26p
 
 <!-- ============ FOLIE 14 · Automatisierung ============ -->
 <section class="slide proc-slide" id="s14" data-title="Automatisierung">
-  <div class="hdr"><span class="logo">FESER <svg><use href="#i-clover"/></svg> GRAF</span><span class="rule"></span></div>
+  <div class="hdr"><img class="logo" src="logo-feser-graf.png" alt="Feser Graf"><span class="rule"></span></div>
   <p class="eyebrow">Automatisierung</p>
   <h1>Mehr Effizienz durch Automatisierung</h1>
   <p class="sub">Wiederkehrende Marketingprozesse werden automatisiert vorbereitet. Die inhaltliche Kontrolle bleibt jederzeit bei der Feser-Graf Gruppe.</p>
@@ -794,7 +860,7 @@ body.overview #overview{display:grid;grid-template-columns:repeat(4,1fr);gap:26p
 
 <!-- ============ FOLIE 15 · Projektumsetzung ============ -->
 <section class="slide proc-slide" id="s15" data-title="Projektumsetzung">
-  <div class="hdr"><span class="logo">FESER <svg><use href="#i-clover"/></svg> GRAF</span><span class="rule"></span></div>
+  <div class="hdr"><img class="logo" src="logo-feser-graf.png" alt="Feser Graf"><span class="rule"></span></div>
   <p class="eyebrow">Projektumsetzung</p>
   <h1>Sicherer Relaunch statt riskanter Komplettumbau</h1>
   <p class="sub">Die neue Plattform entsteht Schritt für Schritt. Der laufende Betrieb und bestehende Prozesse bleiben jederzeit abgesichert.</p>
@@ -817,17 +883,17 @@ body.overview #overview{display:grid;grid-template-columns:repeat(4,1fr);gap:26p
 
 <!-- ============ FOLIE 16 · Projektorganisation ============ -->
 <section class="slide" id="s16" data-title="Projektorganisation">
-  <div class="hdr"><span class="logo">FESER <svg><use href="#i-clover"/></svg> GRAF</span><span class="rule"></span></div>
+  <div class="hdr"><img class="logo" src="logo-feser-graf.png" alt="Feser Graf"><span class="rule"></span></div>
   <p class="eyebrow">Projektorganisation</p>
   <h1>Gemeinsam zum erfolgreichen Relaunch</h1>
   <p class="sub">Die Feser-Graf Gruppe steuert das Projekt strategisch und fachlich. synaigy ergänzt das Team mit Beratung, UX, Technologie und Entwicklung.</p>
   <div class="hub" data-hub="org"></div>
-  <div class="pcard" data-p="kf" style="left:800px;top:130px" data-build="1"><div class="ic"><svg><use href="#i-flag"/></svg></div><div><b>Kathrin Feser</b><em>Projektleitung | C-Level</em><ul><li>Strategische Steuerung</li><li>Budget &amp; Entscheidungen</li><li>Management-Abstimmung</li></ul></div></div>
-  <div class="pcard" data-p="mm" style="left:340px;top:370px" data-build="2"><div class="ic"><svg><use href="#i-target"/></svg></div><div><b>Michael Mayr</b><em>Projektleitung | Digital</em><ul><li>Projektkoordination</li><li>Technik &amp; Strategie</li><li>Schnittstellen &amp; Website</li></ul></div></div>
-  <div class="pcard" data-p="mh" style="left:1250px;top:370px" data-build="2"><div class="ic"><svg><use href="#i-chart"/></svg></div><div><b>Max Hölzlein</b><em>Performance Marketing</em><ul><li>Tracking</li><li>UX &amp; Conversion</li><li>Google Ads</li></ul></div></div>
-  <div class="pcard" data-p="js" style="left:340px;top:590px" data-build="3"><div class="ic"><svg><use href="#i-search"/></svg></div><div><b>Julius Schmidt-Hauck</b><em>SEO &amp; GEO</em><ul><li>SEO</li><li>GEO</li><li>Websiteoptimierung</li></ul></div></div>
-  <div class="pcard" data-p="ms" style="left:1250px;top:590px" data-build="3"><div class="ic"><svg><use href="#i-gear"/></svg></div><div><b>Manuela Schuster</b><em>Projektkoordination</em><ul><li>Partnersteuerung</li><li>autoCRM</li><li>MobilAPP</li></ul></div></div>
-  <div class="pcard" data-p="sy" style="left:800px;top:690px" data-build="4"><div class="ic"><svg><use href="#i-handshake"/></svg></div><div><b>synaigy</b><em>Strategischer Partner</em><ul><li>Beratung</li><li>UX &amp; Entwicklung</li><li>Technische Umsetzung</li></ul></div></div>
+  <div class="pcard" data-p="kf" style="left:800px;top:150px" data-build="1"><div class="ic"><svg><use href="#i-flag"/></svg></div><div><b>Kathrin Feser</b><em>Projektleitung | C-Level</em><ul><li>Strategische Steuerung</li><li>Budget &amp; Entscheidungen</li><li>Management-Abstimmung</li></ul></div></div>
+  <div class="pcard" data-p="mm" style="left:340px;top:405px" data-build="2"><div class="ic"><svg><use href="#i-target"/></svg></div><div><b>Michael Mayr</b><em>Projektleitung | Digital</em><ul><li>Projektkoordination</li><li>Technik &amp; Strategie</li><li>Schnittstellen &amp; Website</li></ul></div></div>
+  <div class="pcard" data-p="mh" style="left:1250px;top:405px" data-build="2"><div class="ic"><svg><use href="#i-chart"/></svg></div><div><b>Max Hölzlein</b><em>Performance Marketing</em><ul><li>Tracking</li><li>UX &amp; Conversion</li><li>Google Ads</li></ul></div></div>
+  <div class="pcard" data-p="js" style="left:340px;top:600px" data-build="3"><div class="ic"><svg><use href="#i-search"/></svg></div><div><b>Julius Schmidt-Hauck</b><em>SEO &amp; GEO</em><ul><li>SEO</li><li>GEO</li><li>Websiteoptimierung</li></ul></div></div>
+  <div class="pcard" data-p="ms" style="left:1250px;top:600px" data-build="3"><div class="ic"><svg><use href="#i-gear"/></svg></div><div><b>Manuela Schuster</b><em>Projektkoordination</em><ul><li>Partnersteuerung</li><li>autoCRM</li><li>MobilAPP</li></ul></div></div>
+  <div class="pcard" data-p="sy" style="left:800px;top:700px" data-build="4"><div class="ic"><svg><use href="#i-handshake"/></svg></div><div><b>synaigy</b><em>Strategischer Partner</em><ul><li>Beratung</li><li>UX &amp; Entwicklung</li><li>Technische Umsetzung</li></ul></div></div>
   <div class="levels">
     <div class="card" data-build="5"><div class="ic"><svg><use href="#i-chess"/></svg></div><b>Projektleitung</b><ul><li>Strategie</li><li>Priorisierung</li><li>Entscheidungen</li></ul></div>
     <div class="card" data-build="5"><div class="ic"><svg><use href="#i-users"/></svg></div><b>Fachbereiche</b><ul><li>Marketing · SEO</li><li>Tracking · Website</li></ul></div>
@@ -838,7 +904,7 @@ body.overview #overview{display:grid;grid-template-columns:repeat(4,1fr);gap:26p
 
 <!-- ============ FOLIE 17 · Business Impact ============ -->
 <section class="slide" id="s17" data-title="Business Impact">
-  <div class="hdr"><span class="logo">FESER <svg><use href="#i-clover"/></svg> GRAF</span><span class="rule"></span></div>
+  <div class="hdr"><img class="logo" src="logo-feser-graf.png" alt="Feser Graf"><span class="rule"></span></div>
   <p class="eyebrow">Business Impact</p>
   <h1>Warum sich diese Investition langfristig auszahlt</h1>
   <p class="sub">Der Website-Relaunch schafft keine neue Website. Er schafft die digitale Grundlage für zukünftiges Wachstum.</p>
@@ -860,7 +926,7 @@ body.overview #overview{display:grid;grid-template-columns:repeat(4,1fr);gap:26p
 
 <!-- ============ FOLIE 18 · Abschluss ============ -->
 <section class="slide" id="s18" data-title="Abschluss">
-  <div class="hdr"><span class="logo">FESER <svg><use href="#i-clover"/></svg> GRAF</span><span class="rule"></span></div>
+  <div class="hdr"><img class="logo" src="logo-feser-graf.png" alt="Feser Graf"><span class="rule"></span></div>
   <p class="eyebrow" style="margin-top:130px">Abschluss</p>
   <h1 style="margin-top:0">Vielen Dank.</h1>
   <p class="sub">Gemeinsam gestalten wir die digitale Zukunft der Feser-Graf Gruppe.</p>
@@ -871,7 +937,7 @@ body.overview #overview{display:grid;grid-template-columns:repeat(4,1fr);gap:26p
 
 <!-- ============ FOLIE 19 · Investition ============ -->
 <section class="slide" id="s19" data-title="Investition">
-  <div class="hdr"><span class="logo">FESER <svg><use href="#i-clover"/></svg> GRAF</span><span class="rule"></span></div>
+  <div class="hdr"><img class="logo" src="logo-feser-graf.png" alt="Feser Graf"><span class="rule"></span></div>
   <p class="eyebrow">Investition</p>
   <h1>Projektumfang &amp; Investition</h1>
   <p class="sub">Die Investition deckt alle wesentlichen Projektbausteine für den strategischen Website-Relaunch ab.</p>
@@ -891,7 +957,7 @@ body.overview #overview{display:grid;grid-template-columns:repeat(4,1fr);gap:26p
   <div class="kpi" data-build="4"><h4>Projektkennzahlen</h4>
     <div class="k"><svg><use href="#i-users"/></svg><div><b data-cfg="ptTotal">181 PT</b><span>Projektvolumen</span></div></div> <!-- TODO prüfen: 181 PT vs. Summe der Positionen 182 PT → CONFIG.ptTotal -->
     <div class="k"><svg><use href="#i-puzzle"/></svg><div><b>5 Arbeitspakete</b><span>Projektumfang</span></div></div>
-    <div class="k"><svg><use href="#i-calendar"/></svg><div><b data-cfg="endDate">31.12.2026</b><span>Geplanter Abschluss</span></div></div> <!-- TODO prüfen: Abschluss 31.12.2026 intern fraglich → CONFIG.endDate -->
+    <div class="k"><svg><use href="#i-calendar"/></svg><div><b data-cfg="endDate">Zeitplan offen</b><span>Abschluss wird gemeinsam festgelegt</span></div></div>
     <div class="k"><svg><use href="#i-kirby"/></svg><div><b>Kirby CMS</b><span>Bestehende Plattform bleibt erhalten</span></div></div>
   </div>
   <div class="banner" data-build="5"><b>Die Investition schafft eine zukunftssichere digitale Plattform statt eines klassischen Website-Relaunchs.</b><span>Alle Projektbausteine zahlen auf ein gemeinsames Ziel ein: mehr Effizienz, bessere Nutzererlebnisse und nachhaltiges Wachstum.</span></div>
@@ -912,9 +978,10 @@ body.overview #overview{display:grid;grid-template-columns:repeat(4,1fr);gap:26p
    CONFIG — hier anpassen
    ===================================================================== */
 const CONFIG = {
-  // Reihenfolge der Folien (IDs). s12 (Angebotsseiten) und s13 (Navigation) sind auf Wunsch von Christoph ausgeblendet – zum Reaktivieren wieder einfügen.
+  // Reihenfolge der Folien (IDs). s20/s21 (Auswahlverfahren, Engere Auswahl – Folien von Mike) ersetzen s03/s04;
+  // s12 (Angebotsseiten) und s13 (Navigation) sind ausgeblendet – zum Reaktivieren die IDs wieder einfügen.
   // Reihenfolge der Folien (IDs). Investition (s19) vor den Abschluss ziehen: 's19' vor 's18' setzen.
-  order: ['s01','s02','s03','s04','s05','s06','s07','s08','s09','s10','s11','s14','s15','s16','s17','s19','s18'],
+  order: ['s01','s02','s20','s21','s05','s06','s07','s08','s09','s10','s11','s14','s15','s16','s17','s19','s18'],
   // synaigy-Chips „ERGÄNZUNG SYNAIGY“ anzeigen (Taste S schaltet um)
   showSynChips: true,
   // Sprechernotizen beim Start anzeigen (Taste N)
@@ -923,8 +990,8 @@ const CONFIG = {
   date: 'August 2026',
   // TODO prüfen: Projektvolumen (Vorlage 181 PT, Summe der Positionen und Angebot = 182 PT)
   ptTotal: '181 PT',
-  // TODO prüfen: geplanter Abschluss (31.12.2026 intern fraglich)
-  endDate: '31.12.2026',
+  // Geplanter Abschluss: auf Wunsch von Christoph offen gelassen (vorher 31.12.2026)
+  endDate: 'Zeitplan offen',
 };
 
 /* ---------- Hub-Grafiken (Titel, Zielbild, Organigramm, Abschluss) ---------- */
@@ -944,7 +1011,7 @@ const HUBS = {
     ]},
   org: { r: 0, core:'<b>Website-Relaunch</b><span>feser-graf.de</span>', labels:false, custom:true,
     // Endpunkte der Linien = Kartenränder (Koordinaten relativ zum Hub 800×520, Mitte 400/260)
-    links:[{p:'kf',x:405,y:65,g:false},{p:'mm',x:110,y:235,g:false},{p:'mh',x:690,y:235,g:false},{p:'js',x:110,y:455,g:true},{p:'ms',x:690,y:455,g:true},{p:'sy',x:405,y:490,g:true}]},
+    links:[{p:'kf',x:405,y:55,g:false},{p:'mm',x:110,y:245,g:false},{p:'mh',x:690,y:245,g:false},{p:'js',x:110,y:440,g:true},{p:'ms',x:690,y:440,g:true},{p:'sy',x:405,y:480,g:true}]},
   final: { r: 300, core:'<svg><use href="#i-clover"/></svg><b>feser-graf.de</b>', coreClass:'', small:false, labels:false, orbit:true,
     items:[{i:'i-search',a:-90},{i:'i-pin',a:-45},{i:'i-car',a:0},{i:'i-wrench',a:45},{i:'i-server',a:90},{i:'i-user',a:135},{i:'i-chart',a:180},{i:'i-cloud',a:225}]}
 };
