@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Website-Relaunch Feser-Graf</title>
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22 style=%22color:%23489C41%22%3E%3Cg fill=%22currentColor%22%3E%3Cpath d=%22M32 31C27 24 17 23 17 15c0-6 5-9 10-5 2 2 4 4 5 7 1-3 3-5 5-7 5-4 10-1 10 5 0 8-10 9-15 16z%22/%3E%3Cpath d=%22M32 31C27 24 17 23 17 15c0-6 5-9 10-5 2 2 4 4 5 7 1-3 3-5 5-7 5-4 10-1 10 5 0 8-10 9-15 16z%22 transform=%22rotate%2890 32 32%29%22/%3E%3Cpath d=%22M32 31C27 24 17 23 17 15c0-6 5-9 10-5 2 2 4 4 5 7 1-3 3-5 5-7 5-4 10-1 10 5 0 8-10 9-15 16z%22 transform=%22rotate%28180 32 32%29%22/%3E%3Cpath d=%22M32 31C27 24 17 23 17 15c0-6 5-9 10-5 2 2 4 4 5 7 1-3 3-5 5-7 5-4 10-1 10 5 0 8-10 9-15 16z%22 transform=%22rotate%28270 32 32%29%22/%3E%3C/g%3E%3Cpath d=%22M36 36c4 2 7 6 8 12%22 stroke=%22currentColor%22 stroke-width=%223.2%22 stroke-linecap=%22round%22 fill=%22none%22/%3E%3C/svg%3E">
-<link rel="apple-touch-icon" href="favicon.svg">
+<link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAABi0lEQVR4nO3UzytEURQH8HPOvW/GmMRKSvkjZGP1iqwoK0urKeVvsHj5SxTZKGsWfqQoSzZC2ZgpCysazHv3l55fpQyjHinfz+qd7r2ne8697xIBAAAAAAAAAAAAAAAAwH/AhWYLHeR7nhHajrYb+f4s+K0bwPmJTi/Ffb5cGcrSh1vdUsapEnvtWSIJqpkFqZoSh1JfZtPGZm3/+um2vJ7ky/fE8kR/l1YD7j69Yc3W3GmhClEk1rvMsarqEjnpbl5kp3uLe7aAvZMUkSQvoJX5inNmXuvoiHukIWVTV2wv2Zp6HnspHzrh2ZCpapvGc7hLe601C1RWJ6ykobrtZZ6DhBuqEtWF+IAoTDavmlzU78tUsKmVsWGThnHRNKxEDXoKD8H4/UC8vlnbOekox+r4qGvZaY70CAtpn/mzQOGYrdramNs+pz+KP3gE38VJksinTc/Xf/GQJklBt/anJAlJvBvrl2KfinqOO994vjZOYv3akJm1GfUWAwAAAAAAAAAAAAAAAAAAfdsjchOTFccmehYAAAAASUVORK5CYII=">
+<link rel="apple-touch-icon" href="favicon.png">
 <!--
   Interaktive Präsentation „Website-Relaunch der Feser-Graf Gruppe“
   Termin: Geschäftsführung Feser-Graf, 28.09.2026 · Feser-Graf × synaigy
@@ -154,7 +154,7 @@ body.overview [data-build],body.reveal-all [data-build],body.overview .hub svg l
 #s01 .trapez{position:absolute;right:0;top:0;width:900px;height:1080px;background:linear-gradient(160deg,#F4F7FB 0%,#EEF3F9 100%);clip-path:polygon(18% 0,100% 0,100% 100%,0 100%);z-index:0}
 #s01 .hub{right:120px;top:120px;width:760px;height:800px;z-index:1}
 #s01 .hub .core{width:210px;height:210px}
-#s01 .hub .core svg{width:110px;height:110px}
+#s01 .hub .core img{width:104px;height:104px;display:block;margin:0 auto}
 
 /* ---------- Folie 2 ---------- */
 #s02 .cards{width:1360px}
@@ -355,7 +355,7 @@ body.overview [data-build],body.reveal-all [data-build],body.overview .hub svg l
 #s18 .sub{max-width:520px;font-size:26px}
 #s18 .hub{left:600px;top:100px;width:820px;height:820px}
 #s18 .hub .core{width:250px;height:250px}
-#s18 .hub .core svg{width:96px;height:96px}
+#s18 .hub .core img{width:84px;height:84px;display:block;margin:0 auto}
 #s18 .hub .core b{font-size:28px;margin-top:8px}
 #s18 .orbit-wrap{position:absolute;inset:0;animation:spin 90s linear infinite}
 #s18 .orbit-wrap .sat{animation:counterspin 90s linear infinite}
@@ -996,7 +996,7 @@ const CONFIG = {
 
 /* ---------- Hub-Grafiken (Titel, Zielbild, Organigramm, Abschluss) ---------- */
 const HUBS = {
-  title: { r: 300, core: '<svg style="color:#489C41"><use href="#i-clover"/></svg>', coreClass:'light', small:true, labels:false,
+  title: { r: 300, core: '<img src="kleeblatt-gruen.png" alt="">', coreClass:'light', small:true, labels:false,
     items: [
       {i:'i-monitor',a:-90},{i:'i-search',a:-45},{i:'i-chart',a:0},{i:'i-pin',a:45},{i:'i-calendar',a:90},{i:'i-wrench',a:135},{i:'i-mobile',a:180},{i:'i-car',a:225}
     ]},
@@ -1012,7 +1012,7 @@ const HUBS = {
   org: { r: 0, core:'<b>Website-Relaunch</b><span>feser-graf.de</span>', labels:false, custom:true,
     // Endpunkte der Linien = Kartenränder (Koordinaten relativ zum Hub 800×520, Mitte 400/260)
     links:[{p:'kf',x:405,y:55,g:false},{p:'mm',x:110,y:245,g:false},{p:'mh',x:690,y:245,g:false},{p:'js',x:110,y:440,g:true},{p:'ms',x:690,y:440,g:true},{p:'sy',x:405,y:480,g:true}]},
-  final: { r: 300, core:'<svg><use href="#i-clover"/></svg><b>feser-graf.de</b>', coreClass:'', small:false, labels:false, orbit:true,
+  final: { r: 300, core:'<img src="kleeblatt-weiss.png" alt=""><b>feser-graf.de</b>', coreClass:'', small:false, labels:false, orbit:true,
     items:[{i:'i-search',a:-90},{i:'i-pin',a:-45},{i:'i-car',a:0},{i:'i-wrench',a:45},{i:'i-server',a:90},{i:'i-user',a:135},{i:'i-chart',a:180},{i:'i-cloud',a:225}]}
 };
 
